@@ -106,5 +106,6 @@ topos = {
     'fattree': (lambda: FatTreeTopo(k=6))
 }
 
+# sudo mn --custom ./Custom_FatTree_6Pods.py --topo=fattree --link=tc --switch=ovsk --controller=none
 if __name__ == '__main__':
     main()
