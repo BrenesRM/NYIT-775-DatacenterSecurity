@@ -3,7 +3,7 @@
 ## 🧪 Assignment 1 – Fat-Tree Topology with Mininet
 
 ### 👨‍🏫 Instructor: Dr. Zakaria Alomari  
-### 👤 Students: Marlon, Jason, #  
+### 👤 Students: Marlon Brenes, Chengnan Jin, Wanpeng Cheng  
 ### 📅 Due Date: Wednesday, 11 June 2025 – 11:59 PM  
 
 ---
