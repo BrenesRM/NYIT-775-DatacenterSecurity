@@ -64,6 +64,38 @@ This script is intended as a preliminary step before tackling the more complex "
     h3 -> h1 h2
     *** Results: 0% dropped (6/6 received)
     ```
+5. **Execute the Script with mn --controller=none**
+    ```bash
+    sudo mn --custom ./mininet_env_test.py --topo=linear,3 --controller=none
+    *** Creating network
+    *** Adding controller
+    *** Adding hosts:
+    h1 h2 h3
+    *** Adding switches:
+    s1 s2 s3
+    *** Adding links:
+    (h1, s1) (h2, s2) (h3, s3) (s2, s1) (s3, s2)
+    *** Configuring hosts
+    h1 h2 h3
+    *** Starting controller
+    
+    *** Starting 3 switches
+    s1 s2 s3 ...
+    *** Starting CLI:
+    mininet> dump
+    <Host h1: h1-eth0:10.0.0.1 pid=2176>
+    <Host h2: h2-eth0:10.0.0.2 pid=2178>
+    <Host h3: h3-eth0:10.0.0.3 pid=2180>
+    <OVSSwitch s1: lo:127.0.0.1,s1-eth1:None,s1-eth2:None pid=2185>
+    <OVSSwitch s2: lo:127.0.0.1,s2-eth1:None,s2-eth2:None,s2-eth3:None pid=2188>
+    <OVSSwitch s3: lo:127.0.0.1,s3-eth1:None,s3-eth2:None pid=2191>
+    mininet> pingall
+    *** Ping: testing ping reachability
+    h1 -> X X
+    h2 -> X X
+    h3 -> X X
+    *** Results: 100% dropped (0/6 received)
+    ```
 ## Expected Output
 
 If your environment is set up correctly, the script will output messages indicating:
