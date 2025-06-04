@@ -112,7 +112,8 @@ h2 -> h1
 *** Results: 0% dropped (2/2 received)
 *** PingAll Result: 0.0 (0.0% dropped means success)
 
-
+## Always sudo mn -c
+    *** A good practice, always clean up your environment
 ## Purpose of this Script
 
 * **Environment Validation:** To confirm that you can run a basic Mininet script using Python.
