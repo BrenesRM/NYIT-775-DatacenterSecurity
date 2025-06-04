@@ -117,4 +117,4 @@ h2 -> h1
 ## Purpose of this Script
 
 * **Environment Validation:** To confirm that you can run a basic Mininet script using Python.
-* **Identify Core Issues:** Helps catch fundamental problems (e.g., Mininet not installed, Python path issues, `sudo` problems) before attempting the more complex Fat-Tree topology [cite: 16] and `ovs-ofctl` configurations [cite: 17] required by the assignment.
+* **Identify Core Issues:** Helps catch fundamental problems (e.g., Mininet not installed, Python path issues, `sudo` problems) before attempting the more complex topologys.
