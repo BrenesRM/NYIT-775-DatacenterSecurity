@@ -34,36 +34,36 @@ This script is intended as a preliminary step before tackling the more complex "
     Run the script using `sudo`:
     ```bash
     sudo mn --custom ./mininet_env_test.py --topo=linear,3
-    ```
     *** Creating network
-*** Adding controller
-*** Adding hosts:
-h1 h2 h3
-*** Adding switches:
-s1 s2 s3
-*** Adding links:
-(h1, s1) (h2, s2) (h3, s3) (s2, s1) (s3, s2)
-*** Configuring hosts
-h1 h2 h3
-*** Starting controller
-c0
-*** Starting 3 switches
-s1 s2 s3 ...
-*** Starting CLI:
-mininet> dump
-<Host h1: h1-eth0:10.0.0.1 pid=1940>
-<Host h2: h2-eth0:10.0.0.2 pid=1942>
-<Host h3: h3-eth0:10.0.0.3 pid=1944>
-<OVSSwitch s1: lo:127.0.0.1,s1-eth1:None,s1-eth2:None pid=1949>
-<OVSSwitch s2: lo:127.0.0.1,s2-eth1:None,s2-eth2:None,s2-eth3:None pid=1952>
-<OVSSwitch s3: lo:127.0.0.1,s3-eth1:None,s3-eth2:None pid=1955>
-<Controller c0: 127.0.0.1:6653 pid=1933>
-mininet> pingall
-*** Ping: testing ping reachability
-h1 -> h2 h3
-h2 -> h1 h3
-h3 -> h1 h2
-*** Results: 0% dropped (6/6 received)
+    *** Adding controller
+    *** Adding hosts:
+    h1 h2 h3
+    *** Adding switches:
+    s1 s2 s3
+    *** Adding links:
+    (h1, s1) (h2, s2) (h3, s3) (s2, s1) (s3, s2)
+    *** Configuring hosts
+    h1 h2 h3
+    *** Starting controller
+    c0
+    *** Starting 3 switches
+    s1 s2 s3 ...
+    *** Starting CLI:
+    mininet> dump
+    <Host h1: h1-eth0:10.0.0.1 pid=1940>
+    <Host h2: h2-eth0:10.0.0.2 pid=1942>
+    <Host h3: h3-eth0:10.0.0.3 pid=1944>
+    <OVSSwitch s1: lo:127.0.0.1,s1-eth1:None,s1-eth2:None pid=1949>
+    <OVSSwitch s2: lo:127.0.0.1,s2-eth1:None,s2-eth2:None,s2-eth3:None pid=1952>
+    <OVSSwitch s3: lo:127.0.0.1,s3-eth1:None,s3-eth2:None pid=1955>
+    <Controller c0: 127.0.0.1:6653 pid=1933>
+    mininet> pingall
+    *** Ping: testing ping reachability
+    h1 -> h2 h3
+    h2 -> h1 h3
+    h3 -> h1 h2
+    *** Results: 0% dropped (6/6 received)
+    ```
 ## Expected Output
 
 If your environment is set up correctly, the script will output messages indicating:
