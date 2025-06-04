@@ -62,13 +62,13 @@ class FatTreeTopo(Topo):
                 for j in range(num_hosts_per_edge):
                     host = self.addHost(f'h{host_id}')
                     self.hosts_list.append(host)
-                    self.addLink(host, edge_switch, bw=12, delay='2ms', use_htb=True)
+                    self.addLink(host, edge_switch, bw=12, delay='2ms', use_htb=True) # Link bandwidth = 12 Mbps, Link Delay = 2 ms
                     host_id += 1
 
             # Edge ↔ Aggregation links
             for edge in pod_edge_switches:
                 for agg in pod_agg_switches:
-                    self.addLink(edge, agg, bw=12, delay='2ms', use_htb=True)
+                    self.addLink(edge, agg, bw=12, delay='2ms', use_htb=True) # Link bandwidth = 12 Mbps, Link Delay = 2 ms
 
             # Aggregation ↔ Core links
             for i in range(len(pod_agg_switches)):
@@ -77,7 +77,7 @@ class FatTreeTopo(Topo):
                     core_index = i * (self.k // 2) + j
                     if core_index < len(self.core_switches_list):
                         core = self.core_switches_list[core_index]
-                        self.addLink(agg, core, bw=12, delay='2ms', use_htb=True)
+                        self.addLink(agg, core, bw=12, delay='2ms', use_htb=True) # Link bandwidth = 12 Mbps, Link Delay = 2 ms
 
 
 def main():
