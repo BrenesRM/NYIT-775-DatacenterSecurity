@@ -11,9 +11,11 @@ def basicTestTopology():
     Creates and runs a minimal Mininet topology for environment testing.
     """
 
-    # Create a Mininet object (without a default controller)
-    # We'll use OVSKernelSwitch which is standard.
-    net = Mininet(controller=None, switch=OVSKernelSwitch, link=TCLink)
+    # Create a Mininet object with a default controller
+    net = Mininet(controller=Controller, switch=OVSKernelSwitch, link=TCLink)
+
+    info('*** Adding controller\n')
+    net.addController('c0')  # Default controller
 
     info('*** Adding hosts\n')
     h1 = net.addHost('h1', ip='10.0.0.1/24')
@@ -23,9 +25,6 @@ def basicTestTopology():
     s1 = net.addSwitch('s1')
 
     info('*** Creating links\n')
-    # Add links between hosts and switch
-    # For testing, we can specify basic link parameters if needed,
-    # but defaults are fine for a basic environment check.
     net.addLink(h1, s1)
     net.addLink(h2, s1)
 
@@ -33,14 +32,8 @@ def basicTestTopology():
     net.start()
 
     info('*** Testing network connectivity\n')
-    # Perform a ping between the hosts to check connectivity
-    # net.pingAll() will test reachability between all host pairs
-    # For just two hosts, h1.cmd('ping -c 3 ' + h2.IP()) would also work
-    result = net.pingAll()
+    result = net.pingAll()  # Test connectivity between all hosts
     info(f'*** PingAll Result: {result} (0.0% dropped means success)\n')
-
-    # If you want to interact with Mininet directly
-    # CLI(net)
 
     info('*** Stopping network\n')
     net.stop()
