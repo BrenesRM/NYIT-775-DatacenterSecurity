@@ -1,0 +1,36 @@
+sudo sh E1_flow.txt
+sudo sh A1_flow.txt
+sudo sh E2_flow.txt
+sudo sh E4_flow.txt
+sudo sh A5_flow.txt
+sudo sh E5_flow.txt
+sudo sh C4_flow.txt
+sudo sh A8_flow.txt
+sudo sh E8_flow.txt
+sudo sh E13_flow.txt
+sudo sh A15_flow.txt
+sudo sh E15_flow.txt
+
+
+h1 ping -c 5 h4
+h3 ping -c 5 h4
+h10 ping -c 5 h22
+h10 ping -c 5 h13
+h37 ping -c 5 h45
+h38 ping -c 5 h43
+
+
+iperf h1 h4
+iperf h3 h4
+iperf h10 h22
+iperf h10 h13
+iperf h37 h45
+iperf h38 h43
+
+
+sudo ovs-ofctl dump-flows E1 > E1_dump
+sudo ovs-ofctl dump-flows A1 > A1_dump
+sudo ovs-ofctl dump-flows E2 > E2_dump
+...
+sudo ovs-ofctl dump-flows E15 > E15_dump
+
