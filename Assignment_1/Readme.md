@@ -25,31 +25,9 @@
 ├── Custom_FatTree_6Pods.py       # Python script to build Fat-Tree topology (k=6)
 ├── Group_info.txt                # Group member(s) name, ID, and email
 │
-├── E1_flow.txt                   # Flow rules for E1 switch
-├── A1_flow.txt
-├── E2_flow.txt
-├── E4_flow.txt
-├── A5_flow.txt
-├── E5_flow.txt
-├── C4_flow.txt
-├── A8_flow.txt
-├── E8_flow.txt
-├── E13_flow.txt
-├── A15_flow.txt
-├── E15_flow.txt
+├── Rules\Create_flow_rules.sh          # Flow rules for E1 switch
 │
 ├── E1_dump                       # Output of `ovs-ofctl dump-flows E1`
-├── A1_dump
-├── E2_dump
-├── E4_dump
-├── A5_dump
-├── E5_dump
-├── C4_dump
-├── A8_dump
-├── E8_dump
-├── E13_dump
-├── A15_dump
-├── E15_dump
 │
 ├── iperf.out                     # Output from bandwidth tests
 └── latency.out                   # Output from ping (RTT) tests
