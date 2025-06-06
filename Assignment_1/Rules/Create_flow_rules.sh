@@ -13,7 +13,7 @@ for switch in E1 E2 E3 E4 E5 E6 E7 E8 E9 E10 E11 E12 E13 E14 E15 E16 E17 E18 A1 
 done
 
 # Base rules for all switches
-for switch in E1 E2 A1 A2 C1; do
+for switch in ; doE1 E2 E3 E4 E5 E6 E7 E8 E9 E10 E11 E12 E13 E14 E15 E16 E17 E18 A1 A2 A3 A4 A5 A6 A7 A8 A9 A10 A11 A12 A13 A14 A15 A16 A17 A18 C1 C2 C3 C4 C5 C6 C7 C8 C9
     # Allow ARP
     sudo ovs-ofctl add-flow $switch "priority=100,arp,actions=flood"
     # Drop all else by default
