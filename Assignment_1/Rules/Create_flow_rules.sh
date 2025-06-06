@@ -3,6 +3,9 @@
 # Complete Path Flow Rules for h1 <-> h4
 echo "Installing complete end-to-end flow rules..."
 
+# Complete Path Flow Rules for h1 <-> h4
+echo "Installing complete end-to-end flow rules..."
+
 # Clear existing flows on all relevant switches
 for switch in E1 E2 E3 E4 E5 E6 E7 E8 E9 E10 E11 E12 E13 E14 E15 E16 E17 E18 A1 A2 A3 A4 A5 A6 A7 A8 A9 A10 A11 A12 A13 A14 A15 A16 A17 A18 C1 C2 C3 C4 C5 C6 C7 C8 C9; do
     sudo ovs-ofctl del-flows $switch
@@ -21,24 +24,34 @@ done
 # h4 (10.0.0.4) is connected to E2-eth1
 
 # E1 Rules (edge switch for h1)
-sudo ovs-ofctl add-flow E1 "priority=200,ip,nw_src=10.0.0.1,nw_dst=10.0.0.4,actions=output:flood"  # To A1
-sudo ovs-ofctl add-flow E1 "priority=200,ip,nw_src=10.0.0.4,nw_dst=10.0.0.1,actions=output:flood"  # To h1
+sudo ovs-ofctl add-flow E1 "priority=200,ip,nw_src=10.0.0.1,nw_dst=10.0.0.4,actions=output:4"  # To A1
+sudo ovs-ofctl add-flow E1 "priority=200,ip,nw_src=10.0.0.4,nw_dst=10.0.0.1,actions=output:1"  # To h1
 
 # A1 Rules (aggregation switch)
-sudo ovs-ofctl add-flow A1 "priority=200,ip,nw_src=10.0.0.1,nw_dst=10.0.0.4,actions=output:flood"  # To C1
-sudo ovs-ofctl add-flow A1 "priority=200,ip,nw_src=10.0.0.4,nw_dst=10.0.0.1,actions=output:flood"  # To E1
+sudo ovs-ofctl add-flow A1 "priority=200,ip,nw_src=10.0.0.1,nw_dst=10.0.0.4,actions=output:2"  # To C1
+sudo ovs-ofctl add-flow A1 "priority=200,ip,nw_src=10.0.0.4,nw_dst=10.0.0.1,actions=output:4"  # To E1
 
 # C1 Rules (core switch)
-sudo ovs-ofctl add-flow C1 "priority=200,ip,nw_src=10.0.0.1,nw_dst=10.0.0.4,actions=output:flood"  # To A2
-sudo ovs-ofctl add-flow C1 "priority=200,ip,nw_src=10.0.0.4,nw_dst=10.0.0.1,actions=output:flood"  # To A1
+sudo ovs-ofctl add-flow C1 "priority=200,ip,nw_src=10.0.0.1,nw_dst=10.0.0.4,actions=output:1"  # To A1
+sudo ovs-ofctl add-flow C1 "priority=200,ip,nw_src=10.0.0.4,nw_dst=10.0.0.1,actions=output:2"  # To A4
 
-# A2 Rules (aggregation switch)
-sudo ovs-ofctl add-flow A2 "priority=200,ip,nw_src=10.0.0.1,nw_dst=10.0.0.4,actions=output:flood"  # To E2
-sudo ovs-ofctl add-flow A2 "priority=200,ip,nw_src=10.0.0.4,nw_dst=10.0.0.1,actions=output:flood"  # To C1
+# A4 Rules (aggregation switch)
+sudo ovs-ofctl add-flow A2 "priority=200,ip,nw_src=10.0.0.1,nw_dst=10.0.0.4,actions=output:4"  # To A4
+sudo ovs-ofctl add-flow A2 "priority=200,ip,nw_src=10.0.0.4,nw_dst=10.0.0.1,actions=output:1"  # To E4
 
-# E2 Rules (edge switch for h4)
-sudo ovs-ofctl add-flow E2 "priority=200,ip,nw_src=10.0.0.1,nw_dst=10.0.0.4,actions=output:flood"  # To h4
-sudo ovs-ofctl add-flow E2 "priority=200,ip,nw_src=10.0.0.4,nw_dst=10.0.0.1,actions=output:flood"  # To A2
+# E4 Rules (edge switch for h4)
+sudo ovs-ofctl add-flow E2 "priority=200,ip,nw_src=10.0.0.1,nw_dst=10.0.0.4,actions=output:1"  # To h4
+sudo ovs-ofctl add-flow E2 "priority=200,ip,nw_src=10.0.0.4,nw_dst=10.0.0.1,actions=output:5"  # To A2
+
+echo "Complete end-to-end flow rules installed for h1 <-> h4"
+
+echo dump-flows E1
+sudo ovs-ofctl dump-flows E1
+echo dump-flows A1
+sudo ovs-ofctl dump-flows A1
+echo dump-flows C1
+sudo ovs-ofctl dump-flows C1
+
 
 echo "Complete end-to-end flow rules installed for h1 <-> h4"
 
