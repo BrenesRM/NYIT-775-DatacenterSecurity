@@ -1,40 +1,53 @@
+mininet> h10 ping -c3 h22
+PING 10.0.0.22 (10.0.0.22) 56(84) bytes of data.
+64 bytes from 10.0.0.22: icmp_seq=1 ttl=64 time=89.8 ms
+64 bytes from 10.0.0.22: icmp_seq=2 ttl=64 time=51.4 ms
+64 bytes from 10.0.0.22: icmp_seq=3 ttl=64 time=34.0 ms
 
- mininet> h1 ping -c3 h4
-PING 10.0.0.4 (10.0.0.4) 56(84) bytes of data.
-64 bytes from 10.0.0.4: icmp_seq=1 ttl=64 time=89.4 ms
-64 bytes from 10.0.0.4: icmp_seq=2 ttl=64 time=84.1 ms
-64 bytes from 10.0.0.4: icmp_seq=3 ttl=64 time=37.0 ms
+--- 10.0.0.22 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2003ms
+rtt min/avg/max/mdev = 34.018/58.403/89.797/23.304 ms
+mininet> h22 ping -c3 h10
+PING 10.0.0.10 (10.0.0.10) 56(84) bytes of data.
+64 bytes from 10.0.0.10: icmp_seq=1 ttl=64 time=42.8 ms
+64 bytes from 10.0.0.10: icmp_seq=2 ttl=64 time=106 ms
+64 bytes from 10.0.0.10: icmp_seq=3 ttl=64 time=137 ms
 
---- 10.0.0.4 ping statistics ---
-3 packets transmitted, 3 received, 0% packet loss, time 2005ms
-rtt min/avg/max/mdev = 36.988/70.160/89.436/23.558 ms
-mininet> h4 ping -c3 h1
-PING 10.0.0.1 (10.0.0.1) 56(84) bytes of data.
-64 bytes from 10.0.0.1: icmp_seq=1 ttl=64 time=24.3 ms
-64 bytes from 10.0.0.1: icmp_seq=2 ttl=64 time=52.3 ms
-64 bytes from 10.0.0.1: icmp_seq=3 ttl=64 time=83.3 ms
+--- 10.0.0.10 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2015ms
+rtt min/avg/max/mdev = 42.836/95.322/136.749/39.129 ms
+mininet> sh ovs-ofctl dump-flows E4 & > E4_dump
+mininet>  cookie=0x0, duration=78.731s, table=0, n_packets=4, n_bytes=168, priority=100,arp actions=FLOOD
+ cookie=0x0, duration=78.500s, table=0, n_packets=6, n_bytes=588, priority=65,ip,in_port="E4-eth1",nw_src=10.0.0.10,nw_dst=10.0.0.22 actions=output:"E4-eth5"
+ cookie=0x0, duration=78.459s, table=0, n_packets=6, n_bytes=588, priority=65,ip,in_port="E4-eth5",nw_src=10.0.0.22,nw_dst=10.0.0.10 actions=output:"E4-eth1"
+ cookie=0x0, duration=79.154s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop
 
---- 10.0.0.1 ping statistics ---
-3 packets transmitted, 3 received, 0% packet loss, time 2067ms
-rtt min/avg/max/mdev = 24.275/53.270/83.283/24.100 ms
+Interrupt
+mininet> sh ovs-ofctl dump-flows A5 & > A5_dump
+mininet>  cookie=0x0, duration=94.100s, table=0, n_packets=4, n_bytes=168, priority=100,arp actions=FLOOD
+ cookie=0x0, duration=93.835s, table=0, n_packets=6, n_bytes=588, priority=65,ip,in_port="A5-eth1",nw_src=10.0.0.10,nw_dst=10.0.0.22 actions=output:"A5-eth4"
+ cookie=0x0, duration=93.792s, table=0, n_packets=6, n_bytes=588, priority=65,ip,in_port="A5-eth4",nw_src=10.0.0.22,nw_dst=10.0.0.10 actions=output:"A5-eth1"
+ cookie=0x0, duration=94.461s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop
 
-mininet> sh ovs-ofctl dump-flows E1 & > E1_dump
-mininet>  cookie=0x0, duration=198.339s, table=0, n_packets=0, n_bytes=0, priority=100,arp actions=FLOOD
- cookie=0x0, duration=198.212s, table=0, n_packets=0, n_bytes=0, priority=85,ip,nw_src=10.0.0.1,nw_dst=10.0.0.4 actions=output:"E1-eth4"
- cookie=0x0, duration=198.155s, table=0, n_packets=0, n_bytes=0, priority=85,ip,nw_src=10.0.0.4,nw_dst=10.0.0.1 actions=output:"E1-eth1"
- cookie=0x0, duration=197.923s, table=0, n_packets=0, n_bytes=0, priority=10,ip,nw_dst=10.0.0.0/24 actions=CONTROLLER:65535
- cookie=0x0, duration=198.556s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop
+Interrupt
+mininet> sh ovs-ofctl dump-flows C4 & > C4_dump
+mininet>  cookie=0x0, duration=107.992s, table=0, n_packets=4, n_bytes=168, priority=100,arp actions=FLOOD
+ cookie=0x0, duration=107.697s, table=0, n_packets=6, n_bytes=588, priority=65,ip,in_port="C4-eth2",nw_src=10.0.0.10,nw_dst=10.0.0.22 actions=output:"C4-eth3"
+ cookie=0x0, duration=107.654s, table=0, n_packets=6, n_bytes=588, priority=65,ip,in_port="C4-eth3",nw_src=10.0.0.22,nw_dst=10.0.0.10 actions=output:"C4-eth2"
+ cookie=0x0, duration=108.334s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop
 
-mininet> sh ovs-ofctl dump-flows A1 & > A1_dump
-mininet>  cookie=0x0, duration=222.746s, table=0, n_packets=0, n_bytes=0, priority=100,arp actions=FLOOD
- cookie=0x0, duration=222.563s, table=0, n_packets=0, n_bytes=0, priority=85,ip,nw_src=10.0.0.1,nw_dst=10.0.0.4 actions=output:"A1-eth2"
- cookie=0x0, duration=222.508s, table=0, n_packets=0, n_bytes=0, priority=85,ip,nw_src=10.0.0.4,nw_dst=10.0.0.1 actions=output:"A1-eth1"
- cookie=0x0, duration=222.289s, table=0, n_packets=0, n_bytes=0, priority=10,ip,nw_dst=10.0.0.0/24 actions=CONTROLLER:65535
- cookie=0x0, duration=222.924s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop
+Interrupt
+mininet> sh ovs-ofctl dump-flows A8 & > A8_dump
+mininet>  cookie=0x0, duration=121.383s, table=0, n_packets=4, n_bytes=168, priority=100,arp actions=FLOOD
+ cookie=0x0, duration=121.033s, table=0, n_packets=6, n_bytes=588, priority=65,ip,in_port="A8-eth4",nw_src=10.0.0.10,nw_dst=10.0.0.22 actions=output:"A8-eth2"
+ cookie=0x0, duration=120.967s, table=0, n_packets=6, n_bytes=588, priority=65,ip,in_port="A8-eth2",nw_src=10.0.0.22,nw_dst=10.0.0.10 actions=output:"A8-eth4"
+ cookie=0x0, duration=121.689s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop
 
-mininet> sh ovs-ofctl dump-flows E2 & > E2_dump
-mininet>  cookie=0x0, duration=236.608s, table=0, n_packets=0, n_bytes=0, priority=100,arp actions=FLOOD
- cookie=0x0, duration=236.366s, table=0, n_packets=0, n_bytes=0, priority=85,ip,nw_src=10.0.0.1,nw_dst=10.0.0.4 actions=output:"E2-eth1"
- cookie=0x0, duration=236.316s, table=0, n_packets=0, n_bytes=0, priority=85,ip,nw_src=10.0.0.4,nw_dst=10.0.0.1 actions=output:"E2-eth4"
- cookie=0x0, duration=236.222s, table=0, n_packets=0, n_bytes=0, priority=10,ip,nw_dst=10.0.0.0/24 actions=CONTROLLER:65535
- cookie=0x0, duration=236.721s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop
+Interrupt
+mininet> sh ovs-ofctl dump-flows E8 & > E8_dump
+mininet>  cookie=0x0, duration=138.567s, table=0, n_packets=4, n_bytes=168, priority=100,arp actions=FLOOD
+ cookie=0x0, duration=138.154s, table=0, n_packets=6, n_bytes=588, priority=65,ip,in_port="E8-eth5",nw_src=10.0.0.10,nw_dst=10.0.0.22 actions=output:"E8-eth1"
+ cookie=0x0, duration=138.085s, table=0, n_packets=6, n_bytes=588, priority=65,ip,in_port="E8-eth1",nw_src=10.0.0.22,nw_dst=10.0.0.10 actions=output:"E8-eth5"
+ cookie=0x0, duration=138.802s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop
+
+Interrupt
