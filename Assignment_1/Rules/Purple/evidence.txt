@@ -1,0 +1,39 @@
+mininet> h13 ping -c3 h10
+PING 10.0.0.10 (10.0.0.10) 56(84) bytes of data.
+64 bytes from 10.0.0.10: icmp_seq=1 ttl=64 time=25.5 ms
+64 bytes from 10.0.0.10: icmp_seq=2 ttl=64 time=46.6 ms
+64 bytes from 10.0.0.10: icmp_seq=3 ttl=64 time=79.0 ms
+
+--- 10.0.0.10 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2004ms
+rtt min/avg/max/mdev = 25.487/50.380/79.028/22.018 ms
+mininet> h10 ping -c3 h13
+PING 10.0.0.13 (10.0.0.13) 56(84) bytes of data.
+64 bytes from 10.0.0.13: icmp_seq=1 ttl=64 time=24.0 ms
+64 bytes from 10.0.0.13: icmp_seq=2 ttl=64 time=70.3 ms
+64 bytes from 10.0.0.13: icmp_seq=3 ttl=64 time=39.9 ms
+
+--- 10.0.0.13 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2005ms
+rtt min/avg/max/mdev = 23.963/44.719/70.293/19.218 ms
+mininet> sh ovs-ofctl dump-flows E4 & > E4_dump
+mininet>  cookie=0x0, duration=51.170s, table=0, n_packets=4, n_bytes=168, priority=100,arp actions=FLOOD
+ cookie=0x0, duration=51.049s, table=0, n_packets=6, n_bytes=588, priority=65,ip,in_port="E4-eth1",nw_src=10.0.0.10,nw_dst=10.0.0.13 actions=output:"E4-eth5"
+ cookie=0x0, duration=51.011s, table=0, n_packets=6, n_bytes=588, priority=65,ip,in_port="E4-eth5",nw_src=10.0.0.13,nw_dst=10.0.0.10 actions=output:"E4-eth1"
+ cookie=0x0, duration=51.416s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop
+
+Interrupt
+mininet> sh ovs-ofctl dump-flows A5 & > A5_dump
+mininet>  cookie=0x0, duration=76.428s, table=0, n_packets=4, n_bytes=168, priority=100,arp actions=FLOOD
+ cookie=0x0, duration=76.268s, table=0, n_packets=6, n_bytes=588, priority=65,ip,in_port="A5-eth1",nw_src=10.0.0.10,nw_dst=10.0.0.13 actions=output:"A5-eth2"
+ cookie=0x0, duration=76.224s, table=0, n_packets=6, n_bytes=588, priority=65,ip,in_port="A5-eth2",nw_src=10.0.0.13,nw_dst=10.0.0.10 actions=output:"A5-eth1"
+ cookie=0x0, duration=76.625s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop
+
+Interrupt
+mininet> sh ovs-ofctl dump-flows E5 & > E5_dump
+mininet>  cookie=0x0, duration=86.158s, table=0, n_packets=4, n_bytes=168, priority=100,arp actions=FLOOD
+ cookie=0x0, duration=85.964s, table=0, n_packets=6, n_bytes=588, priority=65,ip,in_port="E5-eth5",nw_src=10.0.0.10,nw_dst=10.0.0.13 actions=output:"E5-eth1"
+ cookie=0x0, duration=85.935s, table=0, n_packets=6, n_bytes=588, priority=65,ip,in_port="E5-eth1",nw_src=10.0.0.13,nw_dst=10.0.0.10 actions=output:"E5-eth5"
+ cookie=0x0, duration=86.296s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop
+
+Interrupt
