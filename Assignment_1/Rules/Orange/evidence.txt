@@ -1,0 +1,40 @@
+mininet> h45 ping -c3 h37
+PING 10.0.0.37 (10.0.0.37) 56(84) bytes of data.
+64 bytes from 10.0.0.37: icmp_seq=1 ttl=64 time=53.6 ms
+64 bytes from 10.0.0.37: icmp_seq=2 ttl=64 time=21.0 ms
+64 bytes from 10.0.0.37: icmp_seq=3 ttl=64 time=23.4 ms
+
+--- 10.0.0.37 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2002ms
+rtt min/avg/max/mdev = 21.030/32.682/53.626/14.840 ms
+mininet> h37 ping -c3 h45
+PING 10.0.0.45 (10.0.0.45) 56(84) bytes of data.
+64 bytes from 10.0.0.45: icmp_seq=1 ttl=64 time=25.2 ms
+64 bytes from 10.0.0.45: icmp_seq=2 ttl=64 time=23.5 ms
+64 bytes from 10.0.0.45: icmp_seq=3 ttl=64 time=22.1 ms
+
+--- 10.0.0.45 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2008ms
+rtt min/avg/max/mdev = 22.119/23.586/25.164/1.245 ms
+mininet> sh ovs-ofctl dump-flows E13 & > E13_dump
+mininet>  cookie=0x0, duration=46.921s, table=0, n_packets=4, n_bytes=168, priority=100,arp actions=FLOOD
+ cookie=0x0, duration=46.750s, table=0, n_packets=6, n_bytes=588, priority=65,in_port="E13-eth1" actions=output:"E13-eth4"
+ cookie=0x0, duration=46.706s, table=0, n_packets=6, n_bytes=588, priority=65,in_port="E13-eth4" actions=output:"E13-eth1"
+ cookie=0x0, duration=47.181s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop
+
+Interrupt
+mininet> sh ovs-ofctl dump-flows A13 & > A13_dump
+mininet>  cookie=0x0, duration=66.739s, table=0, n_packets=4, n_bytes=168, priority=100,arp actions=FLOOD
+ cookie=0x0, duration=66.560s, table=0, n_packets=6, n_bytes=588, priority=65,in_port="A13-eth1" actions=output:"A13-eth3"
+ cookie=0x0, duration=66.531s, table=0, n_packets=6, n_bytes=588, priority=65,in_port="A13-eth3" actions=output:"A13-eth1"
+ cookie=0x0, duration=66.985s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop
+
+Interrupt
+mininet> sh ovs-ofctl dump-flows A15 & > A15_dump
+mininet> sh ovs-ofctl dump-flows E13 & > E13_dump
+mininet>  cookie=0x0, duration=108.244s, table=0, n_packets=4, n_bytes=168, priority=100,arp actions=FLOOD
+ cookie=0x0, duration=108.073s, table=0, n_packets=6, n_bytes=588, priority=65,in_port="E13-eth1" actions=output:"E13-eth4"
+ cookie=0x0, duration=108.029s, table=0, n_packets=6, n_bytes=588, priority=65,in_port="E13-eth4" actions=output:"E13-eth1"
+ cookie=0x0, duration=108.504s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop
+
+Interrupt
