@@ -1,0 +1,39 @@
+mininet> h38 ping -c3 h45
+PING 10.0.0.45 (10.0.0.45) 56(84) bytes of data.
+64 bytes from 10.0.0.45: icmp_seq=1 ttl=64 time=70.9 ms
+64 bytes from 10.0.0.45: icmp_seq=2 ttl=64 time=27.0 ms
+64 bytes from 10.0.0.45: icmp_seq=3 ttl=64 time=22.1 ms
+
+--- 10.0.0.45 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2003ms
+rtt min/avg/max/mdev = 22.113/40.004/70.859/21.909 ms
+mininet> h45 ping -c3 h38
+PING 10.0.0.38 (10.0.0.38) 56(84) bytes of data.
+64 bytes from 10.0.0.38: icmp_seq=1 ttl=64 time=27.0 ms
+64 bytes from 10.0.0.38: icmp_seq=2 ttl=64 time=23.9 ms
+64 bytes from 10.0.0.38: icmp_seq=3 ttl=64 time=21.4 ms
+
+--- 10.0.0.38 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2008ms
+rtt min/avg/max/mdev = 21.446/24.097/26.987/2.268 ms
+mininet> sh ovs-ofctl dump-flows E13 & > E13_dump
+mininet>  cookie=0x0, duration=57.149s, table=0, n_packets=4, n_bytes=168, priority=100,arp actions=FLOOD
+ cookie=0x0, duration=57.013s, table=0, n_packets=6, n_bytes=588, priority=65,in_port="E13-eth2" actions=output:"E13-eth5"
+ cookie=0x0, duration=56.933s, table=0, n_packets=6, n_bytes=588, priority=65,in_port="E13-eth5" actions=output:"E13-eth2"
+ cookie=0x0, duration=57.343s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop
+
+Interrupt
+mininet> sh ovs-ofctl dump-flows A14 & > A14_dump
+mininet>  cookie=0x0, duration=72.696s, table=0, n_packets=4, n_bytes=168, priority=100,arp actions=FLOOD
+ cookie=0x0, duration=72.462s, table=0, n_packets=6, n_bytes=588, priority=65,in_port="A14-eth1" actions=output:"A14-eth3"
+ cookie=0x0, duration=72.407s, table=0, n_packets=6, n_bytes=588, priority=65,in_port="A14-eth3" actions=output:"A14-eth1"
+ cookie=0x0, duration=72.853s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop
+
+Interrupt
+mininet> sh ovs-ofctl dump-flows E15 & > E15_dump
+mininet>  cookie=0x0, duration=90.042s, table=0, n_packets=4, n_bytes=168, priority=100,arp actions=FLOOD
+ cookie=0x0, duration=89.765s, table=0, n_packets=6, n_bytes=588, priority=65,in_port="E15-eth5" actions=output:"E15-eth3"
+ cookie=0x0, duration=89.703s, table=0, n_packets=6, n_bytes=588, priority=65,in_port="E15-eth3" actions=output:"E15-eth5"
+ cookie=0x0, duration=90.169s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop
+
+Interrupt

@@ -25,7 +25,7 @@
 ├── Custom_FatTree_6Pods.py       # Python script to build Fat-Tree topology (k=6)
 ├── Group_info.txt                # Group member(s) name, ID, and email
 │
-├── Rules\Create_flow_rules.sh          # Flow rules for E1 switch
+├── Rules\Create_flow_rules.sh    # Flow rules for E1 switch
 │
 ├── E1_dump                       # Output of `ovs-ofctl dump-flows E1`
 │
