@@ -1,0 +1,39 @@
+mininet> h4 ping -c3 h3
+PING 10.0.0.3 (10.0.0.3) 56(84) bytes of data.
+64 bytes from 10.0.0.3: icmp_seq=1 ttl=64 time=26.1 ms
+64 bytes from 10.0.0.3: icmp_seq=2 ttl=64 time=22.8 ms
+64 bytes from 10.0.0.3: icmp_seq=3 ttl=64 time=21.7 ms
+
+--- 10.0.0.3 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2003ms
+rtt min/avg/max/mdev = 21.747/23.535/26.089/1.853 ms
+mininet> h3 ping -c3 h4
+PING 10.0.0.4 (10.0.0.4) 56(84) bytes of data.
+64 bytes from 10.0.0.4: icmp_seq=1 ttl=64 time=22.4 ms
+64 bytes from 10.0.0.4: icmp_seq=2 ttl=64 time=84.0 ms
+64 bytes from 10.0.0.4: icmp_seq=3 ttl=64 time=67.5 ms
+
+--- 10.0.0.4 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2005ms
+rtt min/avg/max/mdev = 22.422/57.943/83.958/26.005 ms
+mininet> sh ovs-ofctl dump-flows E1 & > E1_dump
+mininet>  cookie=0x0, duration=169.031s, table=0, n_packets=4, n_bytes=168, priority=100,arp actions=FLOOD
+ cookie=0x0, duration=168.909s, table=0, n_packets=6, n_bytes=588, priority=70,in_port="E1-eth3" actions=output:"E1-eth4"
+ cookie=0x0, duration=168.869s, table=0, n_packets=6, n_bytes=588, priority=70,in_port="E1-eth4" actions=output:"E1-eth3"
+ cookie=0x0, duration=169.234s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop
+
+Interrupt
+mininet> sh ovs-ofctl dump-flows A1 & > A1_dump
+mininet>  cookie=0x0, duration=186.432s, table=0, n_packets=4, n_bytes=168, priority=100,arp actions=FLOOD
+ cookie=0x0, duration=186.268s, table=0, n_packets=6, n_bytes=588, priority=70,in_port="A1-eth1" actions=output:"A1-eth2"
+ cookie=0x0, duration=186.219s, table=0, n_packets=6, n_bytes=588, priority=70,in_port="A1-eth2" actions=output:"A1-eth1"
+ cookie=0x0, duration=186.596s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop
+
+Interrupt
+mininet> sh ovs-ofctl dump-flows E2 & > E2_dump
+mininet>  cookie=0x0, duration=205.405s, table=0, n_packets=4, n_bytes=168, priority=100,arp actions=FLOOD
+ cookie=0x0, duration=205.173s, table=0, n_packets=6, n_bytes=588, priority=70,in_port="E2-eth4" actions=output:"E2-eth1"
+ cookie=0x0, duration=205.121s, table=0, n_packets=6, n_bytes=588, priority=70,in_port="E2-eth1" actions=output:"E2-eth4"
+ cookie=0x0, duration=205.530s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop
+
+Interrupt
