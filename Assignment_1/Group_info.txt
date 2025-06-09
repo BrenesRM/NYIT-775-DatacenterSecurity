@@ -1,2 +1,3 @@
 # Group member(s) name, ID, and email
 Marlon Esteban Brenes Rojas, 134567, mbrenesr@nyit.edu
+Chengnan Jin, 1345395, cjin05@nyit.edu
