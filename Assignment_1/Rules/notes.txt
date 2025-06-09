@@ -6,5 +6,5 @@ dos2unix Create_flow_rules.sh
 
 
 # To run:
-chmod +x Create_flow_rules.sh
-./Create_flow_rules.sh
+chmod +x Create_flow_rules_all.sh
+./Create_flow_rules_all.sh

@@ -7,6 +7,7 @@
 # 50-89: Specific host-to-host paths (differentiated by priority)
 # 10-49: General routing rules
 # 1: Drop all (lowest)
+# Review disable priority, add arp, into the rule. **********
 
 # Define all switches in the topology
 switches=(E1 E2 E3 E4 E5 E6 E7 E8 E9 E10 E11 E12 E13 E14 E15 E16 E17 E18 
