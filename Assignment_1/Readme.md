@@ -28,7 +28,7 @@ This folder contains a **Mininet-based Fat‑Tree (k=6)** topology script, SDN f
   - **Pink**: h38 ↔ h43
 
 - `Assignment_1_Summer_2025.pdf`, `Assigment_1.html`  
-  Assignment specification.
+  Assignment specification and documentation.
 
 - `Group_info.txt`  
   Your team’s info.
