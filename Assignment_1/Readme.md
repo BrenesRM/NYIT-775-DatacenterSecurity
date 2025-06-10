@@ -55,7 +55,7 @@ This folder contains a **Mininet-based Fat‑Tree (k=6)** topology script, SDN f
    ```
 2. **Start Topology**:
    ```bash
-   sudo python3 Custom_FatTree_6Pods.py
+   sudo mn --custom ./Custom_FatTree_6Pods.py --topo=fattree --link=tc --switch=ovsk --controller=none
    ```
    This drops you into the Mininet CLI:
    ```
