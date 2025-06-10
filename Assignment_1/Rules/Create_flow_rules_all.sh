@@ -231,7 +231,7 @@ echo "BLUE PATH:   h3 <-> h4"
 echo "RED PATH:    h10 <-> h22 (long route)"
 echo "PURPLE PATH: h10 <-> h13 (short route)"
 echo "ORANGE PATH: h37 <-> h45"
-echo "PINK PATH: h38 <-> h45"
+echo "PINK PATH: h38 <-> h43"
 echo ""echo "[*] Verifying flows..."
 echo "E1 flows:"
 sudo ovs-ofctl dump-flows E1
