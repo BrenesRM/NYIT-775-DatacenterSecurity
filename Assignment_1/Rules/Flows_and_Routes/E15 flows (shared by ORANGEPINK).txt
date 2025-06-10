@@ -1,0 +1,10 @@
+E15 flows (shared by ORANGE/PINK):
+ cookie=0x0, duration=1.848s, table=0, n_packets=0, n_bytes=0, priority=60,arp,in_port="E15-eth4",arp_spa=10.0.0.37,arp_tpa=10.0.0.45 actions=output:"E15-eth3"
+ cookie=0x0, duration=1.797s, table=0, n_packets=0, n_bytes=0, priority=60,arp,in_port="E15-eth3",arp_spa=10.0.0.45,arp_tpa=10.0.0.37 actions=output:"E15-eth4"
+ cookie=0x0, duration=1.747s, table=0, n_packets=0, n_bytes=0, priority=60,ip,in_port="E15-eth4",nw_src=10.0.0.37,nw_dst=10.0.0.45 actions=output:"E15-eth3"
+ cookie=0x0, duration=1.693s, table=0, n_packets=0, n_bytes=0, priority=60,ip,in_port="E15-eth3",nw_src=10.0.0.45,nw_dst=10.0.0.37 actions=output:"E15-eth4"
+ cookie=0x0, duration=1.294s, table=0, n_packets=0, n_bytes=0, priority=55,arp,in_port="E15-eth5",arp_spa=10.0.0.38,arp_tpa=10.0.0.43 actions=output:"E15-eth1"
+ cookie=0x0, duration=1.264s, table=0, n_packets=0, n_bytes=0, priority=55,arp,in_port="E15-eth1",arp_spa=10.0.0.43,arp_tpa=10.0.0.38 actions=output:"E15-eth5"
+ cookie=0x0, duration=1.234s, table=0, n_packets=0, n_bytes=0, priority=55,ip,in_port="E15-eth5",nw_src=10.0.0.38,nw_dst=10.0.0.43 actions=output:"E15-eth1"
+ cookie=0x0, duration=1.192s, table=0, n_packets=0, n_bytes=0, priority=55,ip,in_port="E15-eth1",nw_src=10.0.0.43,nw_dst=10.0.0.38 actions=output:"E15-eth5"
+ cookie=0x0, duration=0.554s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop

@@ -1,0 +1,10 @@
+E1 flows:
+ cookie=0x0, duration=4.051s, table=0, n_packets=0, n_bytes=0, priority=200,arp,in_port="E1-eth1",arp_spa=10.0.0.1,arp_tpa=10.0.0.4 actions=output:"E1-eth4"
+ cookie=0x0, duration=4.009s, table=0, n_packets=0, n_bytes=0, priority=200,arp,in_port="E1-eth4",arp_spa=10.0.0.4,arp_tpa=10.0.0.1 actions=output:"E1-eth1"
+ cookie=0x0, duration=3.972s, table=0, n_packets=0, n_bytes=0, priority=200,ip,in_port="E1-eth1",nw_src=10.0.0.1,nw_dst=10.0.0.4 actions=output:"E1-eth4"
+ cookie=0x0, duration=3.929s, table=0, n_packets=0, n_bytes=0, priority=200,ip,in_port="E1-eth4",nw_src=10.0.0.4,nw_dst=10.0.0.1 actions=output:"E1-eth1"
+ cookie=0x0, duration=3.888s, table=0, n_packets=0, n_bytes=0, priority=175,arp,in_port="E1-eth3",arp_spa=10.0.0.3,arp_tpa=10.0.0.4 actions=output:"E1-eth4"
+ cookie=0x0, duration=3.848s, table=0, n_packets=0, n_bytes=0, priority=175,arp,in_port="E1-eth4",arp_spa=10.0.0.4,arp_tpa=10.0.0.3 actions=output:"E1-eth3"
+ cookie=0x0, duration=3.812s, table=0, n_packets=0, n_bytes=0, priority=175,ip,in_port="E1-eth3",nw_src=10.0.0.3,nw_dst=10.0.0.4 actions=output:"E1-eth4"
+ cookie=0x0, duration=3.775s, table=0, n_packets=0, n_bytes=0, priority=175,ip,in_port="E1-eth4",nw_src=10.0.0.4,nw_dst=10.0.0.3 actions=output:"E1-eth3"
+ cookie=0x0, duration=0.632s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop

@@ -183,30 +183,30 @@ sudo ovs-ofctl add-flow E15 "priority=60,in_port=4,ip,nw_src=10.0.0.37,nw_dst=10
 sudo ovs-ofctl add-flow E15 "priority=60,in_port=3,ip,nw_src=10.0.0.45,nw_dst=10.0.0.37,actions=output:4"
 
 # ======================
-# PINK PATH: h38 (10.0.0.38) <-> h45 (10.0.0.45)
-# Route: h38 -> E13(port2->port5) -> A14(port1->port3) -> E15(port5->port3) -> h45
+# PINK PATH: h38 (10.0.0.38) <-> h43 (10.0.0.43)
+# Route: h38 -> E13(port2->port5) -> A14(port1->port3) -> E15(port5->port1) -> h43
 # Priority: 55 (lowest)
 # ======================
 
 echo "[*] Installing PINK PATH: h38 <-> h45 (Priority 55)..."
 
 # E13 Switch Rules (shared with ORANGE path)
-sudo ovs-ofctl add-flow E13 "priority=55,in_port=2,arp,arp_spa=10.0.0.38,arp_tpa=10.0.0.45,actions=output:5"
-sudo ovs-ofctl add-flow E13 "priority=55,in_port=5,arp,arp_spa=10.0.0.45,arp_tpa=10.0.0.38,actions=output:2"
-sudo ovs-ofctl add-flow E13 "priority=55,in_port=2,ip,nw_src=10.0.0.38,nw_dst=10.0.0.45,actions=output:5"
-sudo ovs-ofctl add-flow E13 "priority=55,in_port=5,ip,nw_src=10.0.0.45,nw_dst=10.0.0.38,actions=output:2"
+sudo ovs-ofctl add-flow E13 "priority=55,in_port=2,arp,arp_spa=10.0.0.38,arp_tpa=10.0.0.43,actions=output:5"
+sudo ovs-ofctl add-flow E13 "priority=55,in_port=5,arp,arp_spa=10.0.0.43,arp_tpa=10.0.0.38,actions=output:2"
+sudo ovs-ofctl add-flow E13 "priority=55,in_port=2,ip,nw_src=10.0.0.38,nw_dst=10.0.0.43,actions=output:5"
+sudo ovs-ofctl add-flow E13 "priority=55,in_port=5,ip,nw_src=10.0.0.43,nw_dst=10.0.0.38,actions=output:2"
 
 # A14 Switch Rules
-sudo ovs-ofctl add-flow A14 "priority=55,in_port=1,arp,arp_spa=10.0.0.38,arp_tpa=10.0.0.45,actions=output:3"
-sudo ovs-ofctl add-flow A14 "priority=55,in_port=3,arp,arp_spa=10.0.0.45,arp_tpa=10.0.0.38,actions=output:1"
-sudo ovs-ofctl add-flow A14 "priority=55,in_port=1,ip,nw_src=10.0.0.38,nw_dst=10.0.0.45,actions=output:3"
-sudo ovs-ofctl add-flow A14 "priority=55,in_port=3,ip,nw_src=10.0.0.45,nw_dst=10.0.0.38,actions=output:1"
+sudo ovs-ofctl add-flow A14 "priority=55,in_port=1,arp,arp_spa=10.0.0.38,arp_tpa=10.0.0.43,actions=output:3"
+sudo ovs-ofctl add-flow A14 "priority=55,in_port=3,arp,arp_spa=10.0.0.43,arp_tpa=10.0.0.38,actions=output:1"
+sudo ovs-ofctl add-flow A14 "priority=55,in_port=1,ip,nw_src=10.0.0.38,nw_dst=10.0.0.43,actions=output:3"
+sudo ovs-ofctl add-flow A14 "priority=55,in_port=3,ip,nw_src=10.0.0.43,nw_dst=10.0.0.38,actions=output:1"
 
 # E15 Switch Rules (shared with ORANGE path)
-sudo ovs-ofctl add-flow E15 "priority=55,in_port=5,arp,arp_spa=10.0.0.38,arp_tpa=10.0.0.45,actions=output:3"
-sudo ovs-ofctl add-flow E15 "priority=55,in_port=3,arp,arp_spa=10.0.0.45,arp_tpa=10.0.0.38,actions=output:5"
-sudo ovs-ofctl add-flow E15 "priority=55,in_port=5,ip,nw_src=10.0.0.38,nw_dst=10.0.0.45,actions=output:3"
-sudo ovs-ofctl add-flow E15 "priority=55,in_port=3,ip,nw_src=10.0.0.45,nw_dst=10.0.0.38,actions=output:5"
+sudo ovs-ofctl add-flow E15 "priority=55,in_port=5,arp,arp_spa=10.0.0.38,arp_tpa=10.0.0.43,actions=output:1"
+sudo ovs-ofctl add-flow E15 "priority=55,in_port=1,arp,arp_spa=10.0.0.43,arp_tpa=10.0.0.38,actions=output:5"
+sudo ovs-ofctl add-flow E15 "priority=55,in_port=5,ip,nw_src=10.0.0.38,nw_dst=10.0.0.43,actions=output:1"
+sudo ovs-ofctl add-flow E15 "priority=55,in_port=1,ip,nw_src=10.0.0.43,nw_dst=10.0.0.38,actions=output:5"
 
 # ======================
 # DEFAULT RULES
@@ -216,13 +216,13 @@ for sw in "${switches[@]}"; do
     sudo ovs-ofctl add-flow "$sw" "priority=1,actions=drop"
 done
 
-echo "✅ Success! Fixed flow rules configured for all four paths:"
+echo "? Success! Fixed flow rules configured for all four paths:"
 echo "   GREEN PATH  (Priority 200): h1 -> E1(1->4) -> A1(1->2) -> E2(4->1) -> h4"
 echo "   BLUE PATH   (Priority 175): h3 -> E1(3->4) -> A1(1->2) -> E2(4->1) -> h4"
 echo "   RED PATH    (Priority 65):  h10 -> E4(1->5) -> A5(1->4) -> C4(2->3) -> A8(4->2) -> E8(5->1) -> h22"
 echo "   PURPLE PATH (Priority 65):  h10 -> E4(1->5) -> A5(1->2) -> E5(5->1) -> h13"
 echo "   ORANGE PATH (Priority 60): h37 -> E13(1->4) -> A13(1->3) -> E15(4->3) -> h45"
-echo "   PINK PATH   (Priority 55): h38 -> E13(2->5) -> A14(1->3) -> E15(5->3) -> h45"
+echo "   PINK PATH   (Priority 55): h38 -> E13(2->5) -> A14(1->3) -> E15(5->3) -> h43"
 echo "   All reverse paths configured with same priorities"
 echo ""
 echo "[*] Testing connectivity..."
@@ -230,8 +230,9 @@ echo "GREEN PATH:  h1 <-> h4"
 echo "BLUE PATH:   h3 <-> h4"
 echo "RED PATH:    h10 <-> h22 (long route)"
 echo "PURPLE PATH: h10 <-> h13 (short route)"
-echo ""
-echo "[*] Verifying flows..."
+echo "ORANGE PATH: h37 <-> h45"
+echo "PINK PATH: h38 <-> h45"
+echo ""echo "[*] Verifying flows..."
 echo "E1 flows:"
 sudo ovs-ofctl dump-flows E1
 echo ""

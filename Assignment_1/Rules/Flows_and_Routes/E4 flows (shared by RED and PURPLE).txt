@@ -1,0 +1,10 @@
+E4 flows (shared by RED and PURPLE):
+ cookie=0x0, duration=3.133s, table=0, n_packets=0, n_bytes=0, priority=65,arp,in_port="E4-eth1",arp_spa=10.0.0.10,arp_tpa=10.0.0.22 actions=output:"E4-eth5"
+ cookie=0x0, duration=3.092s, table=0, n_packets=0, n_bytes=0, priority=65,arp,in_port="E4-eth5",arp_spa=10.0.0.22,arp_tpa=10.0.0.10 actions=output:"E4-eth1"
+ cookie=0x0, duration=3.050s, table=0, n_packets=0, n_bytes=0, priority=65,ip,in_port="E4-eth1",nw_src=10.0.0.10,nw_dst=10.0.0.22 actions=output:"E4-eth5"
+ cookie=0x0, duration=3.017s, table=0, n_packets=0, n_bytes=0, priority=65,ip,in_port="E4-eth5",nw_src=10.0.0.22,nw_dst=10.0.0.10 actions=output:"E4-eth1"
+ cookie=0x0, duration=2.316s, table=0, n_packets=0, n_bytes=0, priority=65,arp,in_port="E4-eth1",arp_spa=10.0.0.10,arp_tpa=10.0.0.13 actions=output:"E4-eth5"
+ cookie=0x0, duration=2.274s, table=0, n_packets=0, n_bytes=0, priority=65,arp,in_port="E4-eth5",arp_spa=10.0.0.13,arp_tpa=10.0.0.10 actions=output:"E4-eth1"
+ cookie=0x0, duration=2.235s, table=0, n_packets=0, n_bytes=0, priority=65,ip,in_port="E4-eth1",nw_src=10.0.0.10,nw_dst=10.0.0.13 actions=output:"E4-eth5"
+ cookie=0x0, duration=2.200s, table=0, n_packets=0, n_bytes=0, priority=65,ip,in_port="E4-eth5",nw_src=10.0.0.13,nw_dst=10.0.0.10 actions=output:"E4-eth1"
+ cookie=0x0, duration=0.650s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop

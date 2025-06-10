@@ -1,0 +1,6 @@
+E5 flows (PURPLE path only):
+ cookie=0x0, duration=2.233s, table=0, n_packets=0, n_bytes=0, priority=65,arp,in_port="E5-eth5",arp_spa=10.0.0.10,arp_tpa=10.0.0.13 actions=output:"E5-eth1"
+ cookie=0x0, duration=2.176s, table=0, n_packets=0, n_bytes=0, priority=65,arp,in_port="E5-eth1",arp_spa=10.0.0.13,arp_tpa=10.0.0.10 actions=output:"E5-eth5"
+ cookie=0x0, duration=2.132s, table=0, n_packets=0, n_bytes=0, priority=65,ip,in_port="E5-eth5",nw_src=10.0.0.10,nw_dst=10.0.0.13 actions=output:"E5-eth1"
+ cookie=0x0, duration=2.092s, table=0, n_packets=0, n_bytes=0, priority=65,ip,in_port="E5-eth1",nw_src=10.0.0.13,nw_dst=10.0.0.10 actions=output:"E5-eth5"
+ cookie=0x0, duration=0.579s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop

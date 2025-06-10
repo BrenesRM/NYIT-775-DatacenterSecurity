@@ -1,0 +1,6 @@
+E8 flows (RED path only):
+ cookie=0x0, duration=2.680s, table=0, n_packets=0, n_bytes=0, priority=65,arp,in_port="E8-eth5",arp_spa=10.0.0.10,arp_tpa=10.0.0.22 actions=output:"E8-eth1"
+ cookie=0x0, duration=2.636s, table=0, n_packets=0, n_bytes=0, priority=65,arp,in_port="E8-eth1",arp_spa=10.0.0.22,arp_tpa=10.0.0.10 actions=output:"E8-eth5"
+ cookie=0x0, duration=2.582s, table=0, n_packets=0, n_bytes=0, priority=65,ip,in_port="E8-eth5",nw_src=10.0.0.10,nw_dst=10.0.0.22 actions=output:"E8-eth1"
+ cookie=0x0, duration=2.541s, table=0, n_packets=0, n_bytes=0, priority=65,ip,in_port="E8-eth1",nw_src=10.0.0.22,nw_dst=10.0.0.10 actions=output:"E8-eth5"
+ cookie=0x0, duration=0.581s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop

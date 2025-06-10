@@ -1,0 +1,6 @@
+A13 flows (ORANGE only):
+ cookie=0x0, duration=1.938s, table=0, n_packets=0, n_bytes=0, priority=60,arp,in_port="A13-eth1",arp_spa=10.0.0.37,arp_tpa=10.0.0.45 actions=output:"A13-eth3"
+ cookie=0x0, duration=1.899s, table=0, n_packets=0, n_bytes=0, priority=60,arp,in_port="A13-eth3",arp_spa=10.0.0.45,arp_tpa=10.0.0.37 actions=output:"A13-eth1"
+ cookie=0x0, duration=1.848s, table=0, n_packets=0, n_bytes=0, priority=60,ip,in_port="A13-eth1",nw_src=10.0.0.37,nw_dst=10.0.0.45 actions=output:"A13-eth3"
+ cookie=0x0, duration=1.810s, table=0, n_packets=0, n_bytes=0, priority=60,ip,in_port="A13-eth3",nw_src=10.0.0.45,nw_dst=10.0.0.37 actions=output:"A13-eth1"
+ cookie=0x0, duration=0.553s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop

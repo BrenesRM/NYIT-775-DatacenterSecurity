@@ -1,0 +1,10 @@
+A5 flows (shared by RED and PURPLE):
+ cookie=0x0, duration=3.015s, table=0, n_packets=0, n_bytes=0, priority=65,arp,in_port="A5-eth1",arp_spa=10.0.0.10,arp_tpa=10.0.0.22 actions=output:"A5-eth4"
+ cookie=0x0, duration=2.972s, table=0, n_packets=0, n_bytes=0, priority=65,arp,in_port="A5-eth4",arp_spa=10.0.0.22,arp_tpa=10.0.0.10 actions=output:"A5-eth1"
+ cookie=0x0, duration=2.935s, table=0, n_packets=0, n_bytes=0, priority=65,ip,in_port="A5-eth1",nw_src=10.0.0.10,nw_dst=10.0.0.22 actions=output:"A5-eth4"
+ cookie=0x0, duration=2.894s, table=0, n_packets=0, n_bytes=0, priority=65,ip,in_port="A5-eth4",nw_src=10.0.0.22,nw_dst=10.0.0.10 actions=output:"A5-eth1"
+ cookie=0x0, duration=2.208s, table=0, n_packets=0, n_bytes=0, priority=65,arp,in_port="A5-eth1",arp_spa=10.0.0.10,arp_tpa=10.0.0.13 actions=output:"A5-eth2"
+ cookie=0x0, duration=2.172s, table=0, n_packets=0, n_bytes=0, priority=65,arp,in_port="A5-eth2",arp_spa=10.0.0.13,arp_tpa=10.0.0.10 actions=output:"A5-eth1"
+ cookie=0x0, duration=2.135s, table=0, n_packets=0, n_bytes=0, priority=65,ip,in_port="A5-eth1",nw_src=10.0.0.10,nw_dst=10.0.0.13 actions=output:"A5-eth2"
+ cookie=0x0, duration=2.101s, table=0, n_packets=0, n_bytes=0, priority=65,ip,in_port="A5-eth2",nw_src=10.0.0.13,nw_dst=10.0.0.10 actions=output:"A5-eth1"
+ cookie=0x0, duration=0.650s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop

@@ -1,0 +1,6 @@
+C4 flows (RED path only):
+ cookie=0x0, duration=2.887s, table=0, n_packets=0, n_bytes=0, priority=65,arp,in_port="C4-eth2",arp_spa=10.0.0.10,arp_tpa=10.0.0.22 actions=output:"C4-eth3"
+ cookie=0x0, duration=2.850s, table=0, n_packets=0, n_bytes=0, priority=65,arp,in_port="C4-eth3",arp_spa=10.0.0.22,arp_tpa=10.0.0.10 actions=output:"C4-eth2"
+ cookie=0x0, duration=2.816s, table=0, n_packets=0, n_bytes=0, priority=65,ip,in_port="C4-eth2",nw_src=10.0.0.10,nw_dst=10.0.0.22 actions=output:"C4-eth3"
+ cookie=0x0, duration=2.779s, table=0, n_packets=0, n_bytes=0, priority=65,ip,in_port="C4-eth3",nw_src=10.0.0.22,nw_dst=10.0.0.10 actions=output:"C4-eth2"
+ cookie=0x0, duration=0.619s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop
