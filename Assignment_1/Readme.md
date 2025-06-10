@@ -16,7 +16,7 @@ This folder contains a **Mininet-based Fat‑Tree (k=6)** topology script, SDN f
 ### 📂 Contents
 
 - `Custom_FatTree_6Pods.py`  
-  Builds a Fat‑Tree with 6 pods (4 core, 12 agg, 12 edge switches, and hosts).
+  Builds a Fat‑Tree with 6 pods (C9 core, 18 agg, 18 edge switches, and 54 hosts).
 
 - `Rules/Create_flow_rules_all.sh`  
   Bash script to install SDN flow rules for 6 host-to-host paths:
