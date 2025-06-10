@@ -1,0 +1,118 @@
+E1 flows:
+ cookie=0x0, duration=4.051s, table=0, n_packets=0, n_bytes=0, priority=200,arp,in_port="E1-eth1",arp_spa=10.0.0.1,arp_tpa=10.0.0.4 actions=output:"E1-eth4"
+ cookie=0x0, duration=4.009s, table=0, n_packets=0, n_bytes=0, priority=200,arp,in_port="E1-eth4",arp_spa=10.0.0.4,arp_tpa=10.0.0.1 actions=output:"E1-eth1"
+ cookie=0x0, duration=3.972s, table=0, n_packets=0, n_bytes=0, priority=200,ip,in_port="E1-eth1",nw_src=10.0.0.1,nw_dst=10.0.0.4 actions=output:"E1-eth4"
+ cookie=0x0, duration=3.929s, table=0, n_packets=0, n_bytes=0, priority=200,ip,in_port="E1-eth4",nw_src=10.0.0.4,nw_dst=10.0.0.1 actions=output:"E1-eth1"
+ cookie=0x0, duration=3.888s, table=0, n_packets=0, n_bytes=0, priority=175,arp,in_port="E1-eth3",arp_spa=10.0.0.3,arp_tpa=10.0.0.4 actions=output:"E1-eth4"
+ cookie=0x0, duration=3.848s, table=0, n_packets=0, n_bytes=0, priority=175,arp,in_port="E1-eth4",arp_spa=10.0.0.4,arp_tpa=10.0.0.3 actions=output:"E1-eth3"
+ cookie=0x0, duration=3.812s, table=0, n_packets=0, n_bytes=0, priority=175,ip,in_port="E1-eth3",nw_src=10.0.0.3,nw_dst=10.0.0.4 actions=output:"E1-eth4"
+ cookie=0x0, duration=3.775s, table=0, n_packets=0, n_bytes=0, priority=175,ip,in_port="E1-eth4",nw_src=10.0.0.4,nw_dst=10.0.0.3 actions=output:"E1-eth3"
+ cookie=0x0, duration=0.632s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop
+
+A1 flows:
+ cookie=0x0, duration=3.759s, table=0, n_packets=0, n_bytes=0, priority=200,arp,in_port="A1-eth1",arp_spa=10.0.0.1,arp_tpa=10.0.0.4 actions=output:"A1-eth2"
+ cookie=0x0, duration=3.717s, table=0, n_packets=0, n_bytes=0, priority=200,arp,in_port="A1-eth2",arp_spa=10.0.0.4,arp_tpa=10.0.0.1 actions=output:"A1-eth1"
+ cookie=0x0, duration=3.675s, table=0, n_packets=0, n_bytes=0, priority=200,ip,in_port="A1-eth1",nw_src=10.0.0.1,nw_dst=10.0.0.4 actions=output:"A1-eth2"
+ cookie=0x0, duration=3.631s, table=0, n_packets=0, n_bytes=0, priority=200,ip,in_port="A1-eth2",nw_src=10.0.0.4,nw_dst=10.0.0.1 actions=output:"A1-eth1"
+ cookie=0x0, duration=3.569s, table=0, n_packets=0, n_bytes=0, priority=175,arp,in_port="A1-eth1",arp_spa=10.0.0.3,arp_tpa=10.0.0.4 actions=output:"A1-eth2"
+ cookie=0x0, duration=3.521s, table=0, n_packets=0, n_bytes=0, priority=175,arp,in_port="A1-eth2",arp_spa=10.0.0.4,arp_tpa=10.0.0.3 actions=output:"A1-eth1"
+ cookie=0x0, duration=3.473s, table=0, n_packets=0, n_bytes=0, priority=175,ip,in_port="A1-eth1",nw_src=10.0.0.3,nw_dst=10.0.0.4 actions=output:"A1-eth2"
+ cookie=0x0, duration=3.442s, table=0, n_packets=0, n_bytes=0, priority=175,ip,in_port="A1-eth2",nw_src=10.0.0.4,nw_dst=10.0.0.3 actions=output:"A1-eth1"
+ cookie=0x0, duration=0.596s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop
+
+E2 flows:
+ cookie=0x0, duration=3.442s, table=0, n_packets=0, n_bytes=0, priority=200,arp,in_port="E2-eth4",arp_spa=10.0.0.1,arp_tpa=10.0.0.4 actions=output:"E2-eth1"
+ cookie=0x0, duration=3.395s, table=0, n_packets=0, n_bytes=0, priority=200,arp,in_port="E2-eth1",arp_spa=10.0.0.4,arp_tpa=10.0.0.1 actions=output:"E2-eth4"
+ cookie=0x0, duration=3.356s, table=0, n_packets=0, n_bytes=0, priority=200,ip,in_port="E2-eth4",nw_src=10.0.0.1,nw_dst=10.0.0.4 actions=output:"E2-eth1"
+ cookie=0x0, duration=3.311s, table=0, n_packets=0, n_bytes=0, priority=200,ip,in_port="E2-eth1",nw_src=10.0.0.4,nw_dst=10.0.0.1 actions=output:"E2-eth4"
+ cookie=0x0, duration=3.269s, table=0, n_packets=0, n_bytes=0, priority=175,arp,in_port="E2-eth4",arp_spa=10.0.0.3,arp_tpa=10.0.0.4 actions=output:"E2-eth1"
+ cookie=0x0, duration=3.226s, table=0, n_packets=0, n_bytes=0, priority=175,arp,in_port="E2-eth1",arp_spa=10.0.0.4,arp_tpa=10.0.0.3 actions=output:"E2-eth4"
+ cookie=0x0, duration=3.170s, table=0, n_packets=0, n_bytes=0, priority=175,ip,in_port="E2-eth4",nw_src=10.0.0.3,nw_dst=10.0.0.4 actions=output:"E2-eth1"
+ cookie=0x0, duration=3.132s, table=0, n_packets=0, n_bytes=0, priority=175,ip,in_port="E2-eth1",nw_src=10.0.0.4,nw_dst=10.0.0.3 actions=output:"E2-eth4"
+ cookie=0x0, duration=0.680s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop
+
+E4 flows (shared by RED and PURPLE):
+ cookie=0x0, duration=3.133s, table=0, n_packets=0, n_bytes=0, priority=65,arp,in_port="E4-eth1",arp_spa=10.0.0.10,arp_tpa=10.0.0.22 actions=output:"E4-eth5"
+ cookie=0x0, duration=3.092s, table=0, n_packets=0, n_bytes=0, priority=65,arp,in_port="E4-eth5",arp_spa=10.0.0.22,arp_tpa=10.0.0.10 actions=output:"E4-eth1"
+ cookie=0x0, duration=3.050s, table=0, n_packets=0, n_bytes=0, priority=65,ip,in_port="E4-eth1",nw_src=10.0.0.10,nw_dst=10.0.0.22 actions=output:"E4-eth5"
+ cookie=0x0, duration=3.017s, table=0, n_packets=0, n_bytes=0, priority=65,ip,in_port="E4-eth5",nw_src=10.0.0.22,nw_dst=10.0.0.10 actions=output:"E4-eth1"
+ cookie=0x0, duration=2.316s, table=0, n_packets=0, n_bytes=0, priority=65,arp,in_port="E4-eth1",arp_spa=10.0.0.10,arp_tpa=10.0.0.13 actions=output:"E4-eth5"
+ cookie=0x0, duration=2.274s, table=0, n_packets=0, n_bytes=0, priority=65,arp,in_port="E4-eth5",arp_spa=10.0.0.13,arp_tpa=10.0.0.10 actions=output:"E4-eth1"
+ cookie=0x0, duration=2.235s, table=0, n_packets=0, n_bytes=0, priority=65,ip,in_port="E4-eth1",nw_src=10.0.0.10,nw_dst=10.0.0.13 actions=output:"E4-eth5"
+ cookie=0x0, duration=2.200s, table=0, n_packets=0, n_bytes=0, priority=65,ip,in_port="E4-eth5",nw_src=10.0.0.13,nw_dst=10.0.0.10 actions=output:"E4-eth1"
+ cookie=0x0, duration=0.650s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop
+
+A5 flows (shared by RED and PURPLE):
+ cookie=0x0, duration=3.015s, table=0, n_packets=0, n_bytes=0, priority=65,arp,in_port="A5-eth1",arp_spa=10.0.0.10,arp_tpa=10.0.0.22 actions=output:"A5-eth4"
+ cookie=0x0, duration=2.972s, table=0, n_packets=0, n_bytes=0, priority=65,arp,in_port="A5-eth4",arp_spa=10.0.0.22,arp_tpa=10.0.0.10 actions=output:"A5-eth1"
+ cookie=0x0, duration=2.935s, table=0, n_packets=0, n_bytes=0, priority=65,ip,in_port="A5-eth1",nw_src=10.0.0.10,nw_dst=10.0.0.22 actions=output:"A5-eth4"
+ cookie=0x0, duration=2.894s, table=0, n_packets=0, n_bytes=0, priority=65,ip,in_port="A5-eth4",nw_src=10.0.0.22,nw_dst=10.0.0.10 actions=output:"A5-eth1"
+ cookie=0x0, duration=2.208s, table=0, n_packets=0, n_bytes=0, priority=65,arp,in_port="A5-eth1",arp_spa=10.0.0.10,arp_tpa=10.0.0.13 actions=output:"A5-eth2"
+ cookie=0x0, duration=2.172s, table=0, n_packets=0, n_bytes=0, priority=65,arp,in_port="A5-eth2",arp_spa=10.0.0.13,arp_tpa=10.0.0.10 actions=output:"A5-eth1"
+ cookie=0x0, duration=2.135s, table=0, n_packets=0, n_bytes=0, priority=65,ip,in_port="A5-eth1",nw_src=10.0.0.10,nw_dst=10.0.0.13 actions=output:"A5-eth2"
+ cookie=0x0, duration=2.101s, table=0, n_packets=0, n_bytes=0, priority=65,ip,in_port="A5-eth2",nw_src=10.0.0.13,nw_dst=10.0.0.10 actions=output:"A5-eth1"
+ cookie=0x0, duration=0.650s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop
+
+C4 flows (RED path only):
+ cookie=0x0, duration=2.887s, table=0, n_packets=0, n_bytes=0, priority=65,arp,in_port="C4-eth2",arp_spa=10.0.0.10,arp_tpa=10.0.0.22 actions=output:"C4-eth3"
+ cookie=0x0, duration=2.850s, table=0, n_packets=0, n_bytes=0, priority=65,arp,in_port="C4-eth3",arp_spa=10.0.0.22,arp_tpa=10.0.0.10 actions=output:"C4-eth2"
+ cookie=0x0, duration=2.816s, table=0, n_packets=0, n_bytes=0, priority=65,ip,in_port="C4-eth2",nw_src=10.0.0.10,nw_dst=10.0.0.22 actions=output:"C4-eth3"
+ cookie=0x0, duration=2.779s, table=0, n_packets=0, n_bytes=0, priority=65,ip,in_port="C4-eth3",nw_src=10.0.0.22,nw_dst=10.0.0.10 actions=output:"C4-eth2"
+ cookie=0x0, duration=0.619s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop
+
+A8 flows (RED path only):
+ cookie=0x0, duration=2.795s, table=0, n_packets=0, n_bytes=0, priority=65,arp,in_port="A8-eth4",arp_spa=10.0.0.10,arp_tpa=10.0.0.22 actions=output:"A8-eth2"
+ cookie=0x0, duration=2.765s, table=0, n_packets=0, n_bytes=0, priority=65,arp,in_port="A8-eth2",arp_spa=10.0.0.22,arp_tpa=10.0.0.10 actions=output:"A8-eth4"
+ cookie=0x0, duration=2.718s, table=0, n_packets=0, n_bytes=0, priority=65,ip,in_port="A8-eth4",nw_src=10.0.0.10,nw_dst=10.0.0.22 actions=output:"A8-eth2"
+ cookie=0x0, duration=2.680s, table=0, n_packets=0, n_bytes=0, priority=65,ip,in_port="A8-eth2",nw_src=10.0.0.22,nw_dst=10.0.0.10 actions=output:"A8-eth4"
+ cookie=0x0, duration=0.586s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop
+
+E8 flows (RED path only):
+ cookie=0x0, duration=2.680s, table=0, n_packets=0, n_bytes=0, priority=65,arp,in_port="E8-eth5",arp_spa=10.0.0.10,arp_tpa=10.0.0.22 actions=output:"E8-eth1"
+ cookie=0x0, duration=2.636s, table=0, n_packets=0, n_bytes=0, priority=65,arp,in_port="E8-eth1",arp_spa=10.0.0.22,arp_tpa=10.0.0.10 actions=output:"E8-eth5"
+ cookie=0x0, duration=2.582s, table=0, n_packets=0, n_bytes=0, priority=65,ip,in_port="E8-eth5",nw_src=10.0.0.10,nw_dst=10.0.0.22 actions=output:"E8-eth1"
+ cookie=0x0, duration=2.541s, table=0, n_packets=0, n_bytes=0, priority=65,ip,in_port="E8-eth1",nw_src=10.0.0.22,nw_dst=10.0.0.10 actions=output:"E8-eth5"
+ cookie=0x0, duration=0.581s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop
+
+E5 flows (PURPLE path only):
+ cookie=0x0, duration=2.233s, table=0, n_packets=0, n_bytes=0, priority=65,arp,in_port="E5-eth5",arp_spa=10.0.0.10,arp_tpa=10.0.0.13 actions=output:"E5-eth1"
+ cookie=0x0, duration=2.176s, table=0, n_packets=0, n_bytes=0, priority=65,arp,in_port="E5-eth1",arp_spa=10.0.0.13,arp_tpa=10.0.0.10 actions=output:"E5-eth5"
+ cookie=0x0, duration=2.132s, table=0, n_packets=0, n_bytes=0, priority=65,ip,in_port="E5-eth5",nw_src=10.0.0.10,nw_dst=10.0.0.13 actions=output:"E5-eth1"
+ cookie=0x0, duration=2.092s, table=0, n_packets=0, n_bytes=0, priority=65,ip,in_port="E5-eth1",nw_src=10.0.0.13,nw_dst=10.0.0.10 actions=output:"E5-eth5"
+ cookie=0x0, duration=0.579s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop
+
+E13 flows (shared by ORANGE/PINK):
+ cookie=0x0, duration=2.094s, table=0, n_packets=0, n_bytes=0, priority=60,arp,in_port="E13-eth1",arp_spa=10.0.0.37,arp_tpa=10.0.0.45 actions=output:"E13-eth4"
+ cookie=0x0, duration=2.035s, table=0, n_packets=0, n_bytes=0, priority=60,arp,in_port="E13-eth4",arp_spa=10.0.0.45,arp_tpa=10.0.0.37 actions=output:"E13-eth1"
+ cookie=0x0, duration=1.981s, table=0, n_packets=0, n_bytes=0, priority=60,ip,in_port="E13-eth1",nw_src=10.0.0.37,nw_dst=10.0.0.45 actions=output:"E13-eth4"
+ cookie=0x0, duration=1.941s, table=0, n_packets=0, n_bytes=0, priority=60,ip,in_port="E13-eth4",nw_src=10.0.0.45,nw_dst=10.0.0.37 actions=output:"E13-eth1"
+ cookie=0x0, duration=1.499s, table=0, n_packets=0, n_bytes=0, priority=55,arp,in_port="E13-eth2",arp_spa=10.0.0.38,arp_tpa=10.0.0.43 actions=output:"E13-eth5"
+ cookie=0x0, duration=1.451s, table=0, n_packets=0, n_bytes=0, priority=55,arp,in_port="E13-eth5",arp_spa=10.0.0.43,arp_tpa=10.0.0.38 actions=output:"E13-eth2"
+ cookie=0x0, duration=1.413s, table=0, n_packets=0, n_bytes=0, priority=55,ip,in_port="E13-eth2",nw_src=10.0.0.38,nw_dst=10.0.0.43 actions=output:"E13-eth5"
+ cookie=0x0, duration=1.371s, table=0, n_packets=0, n_bytes=0, priority=55,ip,in_port="E13-eth5",nw_src=10.0.0.43,nw_dst=10.0.0.38 actions=output:"E13-eth2"
+ cookie=0x0, duration=0.560s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop
+
+A13 flows (ORANGE only):
+ cookie=0x0, duration=1.938s, table=0, n_packets=0, n_bytes=0, priority=60,arp,in_port="A13-eth1",arp_spa=10.0.0.37,arp_tpa=10.0.0.45 actions=output:"A13-eth3"
+ cookie=0x0, duration=1.899s, table=0, n_packets=0, n_bytes=0, priority=60,arp,in_port="A13-eth3",arp_spa=10.0.0.45,arp_tpa=10.0.0.37 actions=output:"A13-eth1"
+ cookie=0x0, duration=1.848s, table=0, n_packets=0, n_bytes=0, priority=60,ip,in_port="A13-eth1",nw_src=10.0.0.37,nw_dst=10.0.0.45 actions=output:"A13-eth3"
+ cookie=0x0, duration=1.810s, table=0, n_packets=0, n_bytes=0, priority=60,ip,in_port="A13-eth3",nw_src=10.0.0.45,nw_dst=10.0.0.37 actions=output:"A13-eth1"
+ cookie=0x0, duration=0.553s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop
+
+A14 flows (PINK only):
+ cookie=0x0, duration=1.426s, table=0, n_packets=0, n_bytes=0, priority=55,arp,in_port="A14-eth1",arp_spa=10.0.0.38,arp_tpa=10.0.0.43 actions=output:"A14-eth3"
+ cookie=0x0, duration=1.382s, table=0, n_packets=0, n_bytes=0, priority=55,arp,in_port="A14-eth3",arp_spa=10.0.0.43,arp_tpa=10.0.0.38 actions=output:"A14-eth1"
+ cookie=0x0, duration=1.339s, table=0, n_packets=0, n_bytes=0, priority=55,ip,in_port="A14-eth1",nw_src=10.0.0.38,nw_dst=10.0.0.43 actions=output:"A14-eth3"
+ cookie=0x0, duration=1.298s, table=0, n_packets=0, n_bytes=0, priority=55,ip,in_port="A14-eth3",nw_src=10.0.0.43,nw_dst=10.0.0.38 actions=output:"A14-eth1"
+ cookie=0x0, duration=0.557s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop
+
+E15 flows (shared by ORANGE/PINK):
+ cookie=0x0, duration=1.848s, table=0, n_packets=0, n_bytes=0, priority=60,arp,in_port="E15-eth4",arp_spa=10.0.0.37,arp_tpa=10.0.0.45 actions=output:"E15-eth3"
+ cookie=0x0, duration=1.797s, table=0, n_packets=0, n_bytes=0, priority=60,arp,in_port="E15-eth3",arp_spa=10.0.0.45,arp_tpa=10.0.0.37 actions=output:"E15-eth4"
+ cookie=0x0, duration=1.747s, table=0, n_packets=0, n_bytes=0, priority=60,ip,in_port="E15-eth4",nw_src=10.0.0.37,nw_dst=10.0.0.45 actions=output:"E15-eth3"
+ cookie=0x0, duration=1.693s, table=0, n_packets=0, n_bytes=0, priority=60,ip,in_port="E15-eth3",nw_src=10.0.0.45,nw_dst=10.0.0.37 actions=output:"E15-eth4"
+ cookie=0x0, duration=1.294s, table=0, n_packets=0, n_bytes=0, priority=55,arp,in_port="E15-eth5",arp_spa=10.0.0.38,arp_tpa=10.0.0.43 actions=output:"E15-eth1"
+ cookie=0x0, duration=1.264s, table=0, n_packets=0, n_bytes=0, priority=55,arp,in_port="E15-eth1",arp_spa=10.0.0.43,arp_tpa=10.0.0.38 actions=output:"E15-eth5"
+ cookie=0x0, duration=1.234s, table=0, n_packets=0, n_bytes=0, priority=55,ip,in_port="E15-eth5",nw_src=10.0.0.38,nw_dst=10.0.0.43 actions=output:"E15-eth1"
+ cookie=0x0, duration=1.192s, table=0, n_packets=0, n_bytes=0, priority=55,ip,in_port="E15-eth1",nw_src=10.0.0.43,nw_dst=10.0.0.38 actions=output:"E15-eth5"
+ cookie=0x0, duration=0.554s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop
