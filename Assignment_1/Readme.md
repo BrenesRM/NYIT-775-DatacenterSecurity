@@ -125,4 +125,7 @@ To fully execute and log your assignment results:
 - `Custom_FatTree_6Pods.py` contains topology details.
 - `Create_flow_rules_all.sh` orchestrates everything.
 
+  [View the HTML file](./Assigment_1.html)
+
+
 ---
