@@ -1,1 +1,2 @@
+sudo mn -c
 sudo mn --custom ./Custom_FatTree_6Pods.py --topo=fattree --link=tc --switch=ovsk --controller=none
