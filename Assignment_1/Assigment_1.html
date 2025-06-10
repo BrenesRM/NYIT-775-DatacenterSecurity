@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Datacenter Network Topology</title>
+    <meta viewport="width=device-width, initial-scale=1.0">
+    <title>Datacenter Network Topology with Communication Paths</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -28,6 +28,30 @@
             font-size: 2.5em;
             margin-bottom: 30px;
             text-shadow: 0 0 20px rgba(96, 165, 250, 0.5);
+        }
+        
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 8px;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
         }
         
         .topology {
@@ -67,6 +91,7 @@
             transition: all 0.3s ease;
             cursor: pointer;
             position: relative;
+            border: 3px solid transparent;
         }
         
         .node:hover {
@@ -74,11 +99,71 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.4);
         }
         
-        .host {
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white;
-            font-size: 0.9em;
+        /* Host colors based on paths */
+        .host.h1 { 
+            background: linear-gradient(135deg, #10b981, #059669); 
+            border-color: #10b981;
         }
+        .host.h3 { 
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8); 
+            border-color: #3b82f6;
+        }
+        .host.h4 { 
+            background: linear-gradient(135deg, #10b981, #059669); 
+            border-color: #10b981;
+        }
+        .host.h10 { 
+            background: linear-gradient(135deg, #ef4444, #dc2626); 
+            border-color: #ef4444;
+        }
+        .host.h13 { 
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed); 
+            border-color: #8b5cf6;
+        }
+        .host.h22 { 
+            background: linear-gradient(135deg, #ef4444, #dc2626); 
+            border-color: #ef4444;
+        }
+        .host.h37 { 
+            background: linear-gradient(135deg, #f97316, #ea580c); 
+            border-color: #f97316;
+        }
+        .host.h38 { 
+            background: linear-gradient(135deg, #ec4899, #db2777); 
+            border-color: #ec4899;
+        }
+        .host.h43 { 
+            background: linear-gradient(135deg, #ec4899, #db2777); 
+            border-color: #ec4899;
+        }
+        .host.h45 { 
+            background: linear-gradient(135deg, #f97316, #ea580c); 
+            border-color: #f97316;
+        }
+        .host.default { 
+            background: linear-gradient(135deg, #64748b, #475569); 
+            border-color: #64748b;
+        }
+        
+        /* Switch highlighting based on paths */
+        .edge.green-path { border: 3px solid #10b981; box-shadow: 0 0 15px rgba(16, 185, 129, 0.5); }
+        .edge.blue-path { border: 3px solid #3b82f6; box-shadow: 0 0 15px rgba(59, 130, 246, 0.5); }
+        .edge.red-path { border: 3px solid #ef4444; box-shadow: 0 0 15px rgba(239, 68, 68, 0.5); }
+        .edge.purple-path { border: 3px solid #8b5cf6; box-shadow: 0 0 15px rgba(139, 92, 246, 0.5); }
+        .edge.orange-path { border: 3px solid #f97316; box-shadow: 0 0 15px rgba(249, 115, 22, 0.5); }
+        .edge.pink-path { border: 3px solid #ec4899; box-shadow: 0 0 15px rgba(236, 72, 153, 0.5); }
+        
+        .aggregate.green-path { border: 3px solid #10b981; box-shadow: 0 0 15px rgba(16, 185, 129, 0.5); }
+        .aggregate.blue-path { border: 3px solid #3b82f6; box-shadow: 0 0 15px rgba(59, 130, 246, 0.5); }
+        .aggregate.red-path { border: 3px solid #ef4444; box-shadow: 0 0 15px rgba(239, 68, 68, 0.5); }
+        .aggregate.purple-path { border: 3px solid #8b5cf6; box-shadow: 0 0 15px rgba(139, 92, 246, 0.5); }
+        .aggregate.orange-path { border: 3px solid #f97316; box-shadow: 0 0 15px rgba(249, 115, 22, 0.5); }
+        .aggregate.pink-path { border: 3px solid #ec4899; box-shadow: 0 0 15px rgba(236, 72, 153, 0.5); }
+        
+        .core.red-path { border: 3px solid #ef4444; box-shadow: 0 0 15px rgba(239, 68, 68, 0.5); }
+        .core.purple-path { border: 3px solid #8b5cf6; box-shadow: 0 0 15px rgba(139, 92, 246, 0.5); }
+        .core.orange-path { border: 3px solid #f97316; box-shadow: 0 0 15px rgba(249, 115, 22, 0.5); }
+        .core.pink-path { border: 3px solid #ec4899; box-shadow: 0 0 15px rgba(236, 72, 153, 0.5); }
         
         .edge {
             background: linear-gradient(135deg, #3b82f6, #1d4ed8);
@@ -117,394 +202,221 @@
             left: 50%;
             transform: translateX(-50%);
             background: #1e293b;
-            color: #94a3b8;
             padding: 5px 15px;
-            border-radius: 15px;
+            border-radius: 20px;
             font-size: 0.9em;
-            border: 1px solid #475569;
+            color: #94a3b8;
+            border: 1px solid rgba(148, 163, 184, 0.3);
         }
         
-        .connection-lines {
+        .hosts-layer {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .edge-layer {
+            display: flex;
+            gap: 20px;
+        }
+        
+        /* Connection lines */
+        .connections {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 1;
+            z-index: -1;
         }
         
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 40px;
-            padding-top: 30px;
-            border-top: 2px solid rgba(148, 163, 184, 0.2);
+        .connection-line {
+            stroke-width: 3;
+            opacity: 0.8;
         }
         
-        .stat-card {
-            background: rgba(30, 41, 59, 0.6);
-            padding: 20px;
+        .connection-line.green-path { stroke: #10b981; }
+        .connection-line.blue-path { stroke: #3b82f6; }
+        .connection-line.red-path { stroke: #ef4444; }
+        .connection-line.purple-path { stroke: #8b5cf6; }
+        .connection-line.orange-path { stroke: #f97316; }
+        .connection-line.pink-path { stroke: #ec4899; }
+        .connection-line.default { stroke: #64748b; opacity: 0.3; }
+        
+        .path-info {
+            background: rgba(30, 41, 59, 0.8);
             border-radius: 10px;
-            border-left: 4px solid #60a5fa;
-            backdrop-filter: blur(10px);
-        }
-        
-        .stat-number {
-            font-size: 2em;
-            font-weight: bold;
-            color: #60a5fa;
-        }
-        
-        .stat-label {
-            color: #94a3b8;
-            margin-top: 5px;
-        }
-        
-        .legend {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
+            padding: 20px;
             margin-top: 30px;
-            flex-wrap: wrap;
+            border: 1px solid rgba(148, 163, 184, 0.2);
         }
         
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .path-info h3 {
+            color: #60a5fa;
+            margin-top: 0;
         }
         
-        .legend-color {
-            width: 20px;
-            height: 20px;
-            border-radius: 5px;
+        .path-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
         }
         
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
+        .path-item {
+            background: rgba(15, 23, 42, 0.6);
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 4px solid;
         }
         
-        .node.active {
-            animation: pulse 2s infinite;
-        }
-        
-        .topology-container {
-            position: relative;
-            z-index: 2;
-        }
+        .path-item.green { border-left-color: #10b981; }
+        .path-item.blue { border-left-color: #3b82f6; }
+        .path-item.red { border-left-color: #ef4444; }
+        .path-item.purple { border-left-color: #8b5cf6; }
+        .path-item.orange { border-left-color: #f97316; }
+        .path-item.pink { border-left-color: #ec4899; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🏢 Datacenter Network Topology</h1>
-        
-        <div class="topology-container">
-            <div class="topology">
-                <!-- Core Layer -->
-                <div class="layer">
-                    <div class="layer-title">CORE LAYER</div>
-                    <div class="node core" onclick="highlightLayer('core')">C1</div>
-                    <div class="node core" onclick="highlightLayer('core')">C2</div>
-                    <div class="node core" onclick="highlightLayer('core')">C3</div>
-                    <div class="node core" onclick="highlightLayer('core')">C4</div>
-                    <div class="node core" onclick="highlightLayer('core')">C5</div>
-                    <div class="node core" onclick="highlightLayer('core')">C6</div>
-                    <div class="node core" onclick="highlightLayer('core')">C7</div>
-                    <div class="node core" onclick="highlightLayer('core')">C8</div>
-                    <div class="node core" onclick="highlightLayer('core')">C9</div>
-                </div>
-                
-                <!-- Aggregation Layer -->
-                <div class="layer">
-                    <div class="layer-title">AGGREGATION LAYER</div>
-                    <div class="node aggregate" onclick="highlightLayer('aggregate')">A1</div>
-                    <div class="node aggregate" onclick="highlightLayer('aggregate')">A2</div>
-                    <div class="node aggregate" onclick="highlightLayer('aggregate')">A3</div>
-                    <div class="node aggregate" onclick="highlightLayer('aggregate')">A4</div>
-                    <div class="node aggregate" onclick="highlightLayer('aggregate')">A5</div>
-                    <div class="node aggregate" onclick="highlightLayer('aggregate')">A6</div>
-                    <div class="node aggregate" onclick="highlightLayer('aggregate')">A7</div>
-                    <div class="node aggregate" onclick="highlightLayer('aggregate')">A8</div>
-                    <div class="node aggregate" onclick="highlightLayer('aggregate')">A9</div>
-                    <div class="node aggregate" onclick="highlightLayer('aggregate')">A10</div>
-                    <div class="node aggregate" onclick="highlightLayer('aggregate')">A11</div>
-                    <div class="node aggregate" onclick="highlightLayer('aggregate')">A12</div>
-                    <div class="node aggregate" onclick="highlightLayer('aggregate')">A13</div>
-                    <div class="node aggregate" onclick="highlightLayer('aggregate')">A14</div>
-                    <div class="node aggregate" onclick="highlightLayer('aggregate')">A15</div>
-                    <div class="node aggregate" onclick="highlightLayer('aggregate')">A16</div>
-                    <div class="node aggregate" onclick="highlightLayer('aggregate')">A17</div>
-                    <div class="node aggregate" onclick="highlightLayer('aggregate')">A18</div>
-                </div>
-                
-                <!-- Edge Layer -->
-                <div class="layer">
-                    <div class="layer-title">EDGE LAYER</div>
-                    <div class="pod">
-                        <div class="pod-label">POD 1</div>
-                        <div style="display: flex; gap: 15px;">
-                            <div class="node edge" onclick="highlightPod(1)">E1</div>
-                            <div class="node edge" onclick="highlightPod(1)">E2</div>
-                            <div class="node edge" onclick="highlightPod(1)">E3</div>
-                        </div>
-                    </div>
-                    <div class="pod">
-                        <div class="pod-label">POD 2</div>
-                        <div style="display: flex; gap: 15px;">
-                            <div class="node edge" onclick="highlightPod(2)">E4</div>
-                            <div class="node edge" onclick="highlightPod(2)">E5</div>
-                            <div class="node edge" onclick="highlightPod(2)">E6</div>
-                        </div>
-                    </div>
-                    <div class="pod">
-                        <div class="pod-label">POD 3</div>
-                        <div style="display: flex; gap: 15px;">
-                            <div class="node edge" onclick="highlightPod(3)">E7</div>
-                            <div class="node edge" onclick="highlightPod(3)">E8</div>
-                            <div class="node edge" onclick="highlightPod(3)">E9</div>
-                        </div>
-                    </div>
-                    <div class="pod">
-                        <div class="pod-label">POD 4</div>
-                        <div style="display: flex; gap: 15px;">
-                            <div class="node edge" onclick="highlightPod(4)">E10</div>
-                            <div class="node edge" onclick="highlightPod(4)">E11</div>
-                            <div class="node edge" onclick="highlightPod(4)">E12</div>
-                        </div>
-                    </div>
-                    <div class="pod">
-                        <div class="pod-label">POD 5</div>
-                        <div style="display: flex; gap: 15px;">
-                            <div class="node edge" onclick="highlightPod(5)">E13</div>
-                            <div class="node edge" onclick="highlightPod(5)">E14</div>
-                            <div class="node edge" onclick="highlightPod(5)">E15</div>
-                        </div>
-                    </div>
-                    <div class="pod">
-                        <div class="pod-label">POD 6</div>
-                        <div style="display: flex; gap: 15px;">
-                            <div class="node edge" onclick="highlightPod(6)">E16</div>
-                            <div class="node edge" onclick="highlightPod(6)">E17</div>
-                            <div class="node edge" onclick="highlightPod(6)">E18</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Host Layer -->
-                <div class="layer">
-                    <div class="layer-title">HOST LAYER</div>
-                    <div class="pod">
-                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
-                            <div class="node host">h1</div>
-                            <div class="node host">h2</div>
-                            <div class="node host">h3</div>
-                        </div>
-                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
-                            <div class="node host">h4</div>
-                            <div class="node host">h5</div>
-                            <div class="node host">h6</div>
-                        </div>
-                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
-                            <div class="node host">h7</div>
-                            <div class="node host">h8</div>
-                            <div class="node host">h9</div>
-                        </div>
-                    </div>
-                    <div class="pod">
-                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
-                            <div class="node host">h10</div>
-                            <div class="node host">h11</div>
-                            <div class="node host">h12</div>
-                        </div>
-                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
-                            <div class="node host">h13</div>
-                            <div class="node host">h14</div>
-                            <div class="node host">h15</div>
-                        </div>
-                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
-                            <div class="node host">h16</div>
-                            <div class="node host">h17</div>
-                            <div class="node host">h18</div>
-                        </div>
-                    </div>
-                    <div class="pod">
-                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
-                            <div class="node host">h19</div>
-                            <div class="node host">h20</div>
-                            <div class="node host">h21</div>
-                        </div>
-                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
-                            <div class="node host">h22</div>
-                            <div class="node host">h23</div>
-                            <div class="node host">h24</div>
-                        </div>
-                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
-                            <div class="node host">h25</div>
-                            <div class="node host">h26</div>
-                            <div class="node host">h27</div>
-                        </div>
-                    </div>
-                    <div class="pod">
-                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
-                            <div class="node host">h28</div>
-                            <div class="node host">h29</div>
-                            <div class="node host">h30</div>
-                        </div>
-                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
-                            <div class="node host">h31</div>
-                            <div class="node host">h32</div>
-                            <div class="node host">h33</div>
-                        </div>
-                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
-                            <div class="node host">h34</div>
-                            <div class="node host">h35</div>
-                            <div class="node host">h36</div>
-                        </div>
-                    </div>
-                    <div class="pod">
-                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
-                            <div class="node host">h37</div>
-                            <div class="node host">h38</div>
-                            <div class="node host">h39</div>
-                        </div>
-                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
-                            <div class="node host">h40</div>
-                            <div class="node host">h41</div>
-                            <div class="node host">h42</div>
-                        </div>
-                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
-                            <div class="node host">h43</div>
-                            <div class="node host">h44</div>
-                            <div class="node host">h45</div>
-                        </div>
-                    </div>
-                    <div class="pod">
-                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
-                            <div class="node host">h46</div>
-                            <div class="node host">h47</div>
-                            <div class="node host">h48</div>
-                        </div>
-                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
-                            <div class="node host">h49</div>
-                            <div class="node host">h50</div>
-                            <div class="node host">h51</div>
-                        </div>
-                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
-                            <div class="node host">h52</div>
-                            <div class="node host">h53</div>
-                            <div class="node host">h54</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <h1>Datacenter Network Topology - Active Communication Paths</h1>
         
         <div class="legend">
             <div class="legend-item">
-                <div class="legend-color" style="background: linear-gradient(135deg, #ef4444, #dc2626);"></div>
-                <span>Core Switches (C1-C9)</span>
+                <div class="legend-color" style="background: #10b981;"></div>
+                <span>Green Path (H1↔H4)</span>
             </div>
             <div class="legend-item">
-                <div class="legend-color" style="background: linear-gradient(135deg, #f59e0b, #d97706);"></div>
-                <span>Aggregation Switches (A1-A18)</span>
+                <div class="legend-color" style="background: #3b82f6;"></div>
+                <span>Blue Path (H3↔H4)</span>
             </div>
             <div class="legend-item">
-                <div class="legend-color" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8);"></div>
-                <span>Edge Switches (E1-E18)</span>
+                <div class="legend-color" style="background: #ef4444;"></div>
+                <span>Red Path (H10↔H22)</span>
             </div>
             <div class="legend-item">
-                <div class="legend-color" style="background: linear-gradient(135deg, #10b981, #059669);"></div>
-                <span>Hosts (h1-h54)</span>
+                <div class="legend-color" style="background: #8b5cf6;"></div>
+                <span>Purple Path (H10↔H13)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #f97316;"></div>
+                <span>Orange Path (H37↔H45)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #ec4899;"></div>
+                <span>Pink Path (H38↔H43)</span>
             </div>
         </div>
         
-        <div class="stats">
-            <div class="stat-card">
-                <div class="stat-number">54</div>
-                <div class="stat-label">Total Hosts</div>
+        <div class="topology">
+            <!-- Core Layer -->
+            <div class="layer">
+                <div class="layer-title">Core</div>
+                <div class="node core red-path purple-path orange-path pink-path">C4</div>
             </div>
-            <div class="stat-card">
-                <div class="stat-number">18</div>
-                <div class="stat-label">Edge Switches</div>
+            
+            <!-- Aggregate Layer -->
+            <div class="layer">
+                <div class="layer-title">Aggregate</div>
+                <div class="node aggregate green-path blue-path">A1</div>
+                <div class="node aggregate red-path purple-path">A5</div>
+                <div class="node aggregate red-path">A8</div>
+                <div class="node aggregate orange-path">A13</div>
+                <div class="node aggregate pink-path">A14</div>
             </div>
-            <div class="stat-card">
-                <div class="stat-number">18</div>
-                <div class="stat-label">Aggregation Switches</div>
+            
+            <!-- Edge Layer -->
+            <div class="layer">
+                <div class="layer-title">Edge</div>
+                <div class="node edge green-path blue-path">E1</div>
+                <div class="node edge green-path blue-path">E2</div>
+                <div class="node edge red-path purple-path">E4</div>
+                <div class="node edge purple-path">E5</div>
+                <div class="node edge red-path">E8</div>
+                <div class="node edge orange-path pink-path">E13</div>
+                <div class="node edge orange-path pink-path">E15</div>
             </div>
-            <div class="stat-card">
-                <div class="stat-number">9</div>
-                <div class="stat-label">Core Switches</div>
+            
+            <!-- Hosts Layer -->
+            <div class="layer">
+                <div class="layer-title">Hosts</div>
+                <div class="pod">
+                    <div class="pod-label">Pod 1</div>
+                    <div class="hosts-layer">
+                        <div class="node host h1">H1<br>10.0.0.1</div>
+                        <div class="node host h3">H3<br>10.0.0.3</div>
+                        <div class="node host h4">H4<br>10.0.0.4</div>
+                    </div>
+                </div>
+                
+                <div class="pod">
+                    <div class="pod-label">Pod 2</div>
+                    <div class="hosts-layer">
+                        <div class="node host h10">H10<br>10.0.0.10</div>
+                        <div class="node host h13">H13<br>10.0.0.13</div>
+                        <div class="node host h22">H22<br>10.0.0.22</div>
+                    </div>
+                </div>
+                
+                <div class="pod">
+                    <div class="pod-label">Pod 3</div>
+                    <div class="hosts-layer">
+                        <div class="node host h37">H37<br>10.0.0.37</div>
+                        <div class="node host h38">H38<br>10.0.0.38</div>
+                        <div class="node host h43">H43<br>10.0.0.43</div>
+                        <div class="node host h45">H45<br>10.0.0.45</div>
+                    </div>
+                </div>
             </div>
-            <div class="stat-card">
-                <div class="stat-number">6</div>
-                <div class="stat-label">PODs</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">3</div>
-                <div class="stat-label">Fat-Tree Levels</div>
+        </div>
+        
+        <div class="path-info">
+            <h3>Active Communication Paths Analysis</h3>
+            <div class="path-list">
+                <div class="path-item green">
+                    <strong>Green Path: H1 ↔ H4</strong><br>
+                    Priority: 200 (Highest)<br>
+                    Route: H1 → E1/E2 → A1 → E1/E2 → H4<br>
+                    Status: Active flows configured
+                </div>
+                
+                <div class="path-item blue">
+                    <strong>Blue Path: H3 ↔ H4</strong><br>
+                    Priority: 175<br>
+                    Route: H3 → E1/E2 → A1 → E1/E2 → H4<br>
+                    Status: Active flows configured
+                </div>
+                
+                <div class="path-item red">
+                    <strong>Red Path: H10 ↔ H22</strong><br>
+                    Priority: 65<br>
+                    Route: H10 → E4 → A5 → C4 → A8 → E8 → H22<br>
+                    Status: Active flows configured
+                </div>
+                
+                <div class="path-item purple">
+                    <strong>Purple Path: H10 ↔ H13</strong><br>
+                    Priority: 65<br>
+                    Route: H10 → E4/E5 → A5 → E4/E5 → H13<br>
+                    Status: Active flows configured
+                </div>
+                
+                <div class="path-item orange">
+                    <strong>Orange Path: H37 ↔ H45</strong><br>
+                    Priority: 60<br>
+                    Route: H37 → E13 → A13 → C4 → A13 → E15 → H45<br>
+                    Status: Active flows configured
+                </div>
+                
+                <div class="path-item pink">
+                    <strong>Pink Path: H38 ↔ H43</strong><br>
+                    Priority: 55 (Lowest)<br>
+                    Route: H38 → E13 → A14 → C4 → A14 → E15 → H43<br>
+                    Status: Active flows configured
+                </div>
             </div>
         </div>
     </div>
-    
-    <script>
-        function highlightLayer(layer) {
-            // Remove existing highlights
-            document.querySelectorAll('.node').forEach(node => {
-                node.classList.remove('active');
-            });
-            
-            // Add highlight to selected layer
-            const classMap = {
-                'core': 'core',
-                'aggregate': 'aggregate',
-                'edge': 'edge',
-                'host': 'host'
-            };
-            
-            document.querySelectorAll(`.${classMap[layer]}`).forEach(node => {
-                node.classList.add('active');
-            });
-            
-            setTimeout(() => {
-                document.querySelectorAll('.node').forEach(node => {
-                    node.classList.remove('active');
-                });
-            }, 3000);
-        }
-        
-        function highlightPod(podNumber) {
-            document.querySelectorAll('.node').forEach(node => {
-                node.classList.remove('active');
-            });
-            
-            // Highlight specific pod switches and hosts
-            const podSwitches = document.querySelectorAll('.pod')[podNumber - 1].querySelectorAll('.edge');
-            const podHosts = document.querySelectorAll('.pod')[podNumber + 1].querySelectorAll('.host');
-            
-            [...podSwitches, ...podHosts].forEach(node => {
-                node.classList.add('active');
-            });
-            
-            setTimeout(() => {
-                document.querySelectorAll('.node').forEach(node => {
-                    node.classList.remove('active');
-                });
-            }, 3000);
-        }
-        
-        // Add some interactivity
-        document.querySelectorAll('.node').forEach(node => {
-            node.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-5px) scale(1.05)';
-            });
-            
-            node.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
-            });
-        });
-    </script>
 </body>
 </html>
