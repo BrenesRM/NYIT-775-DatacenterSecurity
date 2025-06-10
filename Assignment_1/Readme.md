@@ -8,26 +8,118 @@
 
 ---
 
-## 📘 Objective
+# Assignment_1 – Fat‑Tree Mininet Topology & SDN Flow Rules 📘
 
-- Build a **Fat-Tree topology with 6 pods** in Mininet using a custom Python script.
-- Configure **bidirectional communication paths** between specific host pairs using `ovs-ofctl` flow rules (NO controller used).
-- Run `iperf` and `ping` tests for performance evaluation.
-- Export all required files as specified in the assignment instructions.
+This folder contains a **Mininet-based Fat‑Tree (k=6)** topology script, SDN flow-rule setup, and assignment documentation.
+
+### 📂 Contents
+
+- `Custom_FatTree_6Pods.py`  
+  Builds a Fat‑Tree with 6 pods (4 core, 12 agg, 12 edge switches, and hosts).
+
+- `Rules/Create_flow_rules_all.sh`  
+  Bash script to install SDN flow rules for 6 host-to-host paths:
+  - **Green**: h1 ↔ h4  
+  - **Blue**: h3 ↔ h4  
+  - **Red**: h10 ↔ h22  
+  - **Purple**: h10 ↔ h13  
+  - **Orange**: h37 ↔ h45  
+  - **Pink**: h38 ↔ h43
+
+- `Assignment_1_Summer_2025.pdf`, `Assigment_1.html`  
+  Assignment specification.
+
+- `Group_info.txt`  
+  Your team’s info.
+
+- `Notes.txt`  
+  Quick run reminders.
 
 ---
 
-## 📁 Files Included
+## 🛠️ Prerequisites
 
-```plaintext
-<lastname_firstname>/
-│
-├── Custom_FatTree_6Pods.py       # Python script to build Fat-Tree topology (k=6)
-├── Group_info.txt                # Group member(s) name, ID, and email
-│
-├── Rules\Create_flow_rules.sh    # Flow rules for E1 switch
-│
-├── E1_dump                       # Output of `ovs-ofctl dump-flows E1`
-│
-├── iperf.out                     # Output from bandwidth tests
-└── latency.out                   # Output from ping (RTT) tests
+- Linux system
+- **Mininet** installed with:
+  - `OVSSwitch`
+  - `TCLink`
+- **Open vSwitch** management tools (`ovs-ofctl`, `ovs-vsctl`)
+
+---
+
+## 🚀 How to Use
+
+1. **Clean Mininet** (optional):
+   ```bash
+   sudo mn -c
+   ```
+2. **Start Topology**:
+   ```bash
+   sudo python3 Custom_FatTree_6Pods.py
+   ```
+   This drops you into the Mininet CLI:
+   ```
+   mininet>
+   ```
+3. **In parallel terminal**, grant execute permission and install flow rules:
+   ```bash
+   chmod +x Rules/Create_flow_rules_all.sh
+   ./Rules/Create_flow_rules_all.sh
+   ```
+   This script:
+   - Clears existing flows
+   - Adds ARP & IP rules for all test paths with priorities
+   - Dumps `ovs-ofctl` outputs to verify
+
+4. **Verify connectivity** inside CLI:
+   ```bash
+   mininet> pingall
+   mininet> iperf h1 h4    # Example test
+   ```
+
+5. **Run your own performance tests** (ping, iperf) as needed.
+
+---
+
+## ✅ Flow Rule Path Summary
+
+| Path     | Hosts         | Switch Sequence                              | Priority |
+|----------|----------------|----------------------------------------------|----------|
+| Green    | h1 ↔ h4        | E1 → A1 → E2                                  | 200      |
+| Blue     | h3 ↔ h4        | E1 → A1 → E2                                  | 175      |
+| Red      | h10 ↔ h22      | E4 → A5 → C4 → A8 → E8                         | 65       |
+| Purple   | h10 ↔ h13      | E4 → A5 → E5                                   | 65       |
+| Orange   | h37 ↔ h45      | E13 → A13 → E15                                | 60       |
+| Pink     | h38 ↔ h43      | E13 → A14 → E15                                | 55       |
+
+Reverse flow rules are installed for bidirectional traffic.
+
+---
+
+## 💬 Notes
+
+- Links between hosts & switches all use **12 Mbps** limit and **2 ms delay**.
+- Flow rules include separate **ARP** and **IP** matches.
+- Catch-all `priority=1` rules drop any non-specified traffic.
+- Output of `ovs-ofctl dump-flows` commands are printed during script run for debugging.
+
+---
+
+## 🎯 Running Assignment Tests
+
+To fully execute and log your assignment results:
+
+1. **Apply flow rules** as shown above.
+2. Run **iperf** and **ping** tests for all six host pairs.
+3. **Capture output** into required formats (`iperf.out`, `latency.out`).
+4. Include `*_dump` files as evidence of switches’ flow tables.
+
+---
+
+## 📄 References
+
+- Assignment PDF and HTML in this directory.
+- `Custom_FatTree_6Pods.py` contains topology details.
+- `Create_flow_rules_all.sh` orchestrates everything.
+
+---
