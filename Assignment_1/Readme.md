@@ -65,7 +65,7 @@ This folder contains a **Mininet-based Fat‑Tree (k=6)** topology script, SDN f
 3. **In parallel terminal**, grant execute permission and install flow rules:
    ```bash
    In the folder Rules/
-    # If needed
+    # If needed, run dos2unix and chmod +x for each .sh rule for a proper execution.
     sudo apt update
     sudo apt install dos2unix
     dos2unix Create_flow_rules_all.sh
