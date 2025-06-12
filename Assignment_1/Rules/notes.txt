@@ -1,3 +1,6 @@
+For more information:
+https://github.com/BrenesRM/NYIT-775-DatacenterSecurity/blob/main/Assignment_1/Readme.md
+
 # If needed
 sudo apt update
 sudo apt install dos2unix

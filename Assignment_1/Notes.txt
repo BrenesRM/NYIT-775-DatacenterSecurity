@@ -1,2 +1,5 @@
+For more information:
+https://github.com/BrenesRM/NYIT-775-DatacenterSecurity/blob/main/Assignment_1/Readme.md
+
 sudo mn -c
 sudo mn --custom ./Custom_FatTree_6Pods.py --topo=fattree --link=tc --switch=ovsk --controller=none

@@ -41,17 +41,37 @@ echo "✅ All switches initialized with base flow rules."
 
 echo "[*] Installing GREEN PATH: h1 <-> h4 (Priority 80-89)..."
 
-# E1 Switch Rules (Priority 85)
-sudo ovs-ofctl add-flow E1 "priority=85,ip,nw_src=10.0.0.1,nw_dst=10.0.0.4,actions=output:4"
-sudo ovs-ofctl add-flow E1 "priority=85,ip,nw_src=10.0.0.4,nw_dst=10.0.0.1,actions=output:1"
+# GREEN PATH: h1<->h4 (Priority 200)
+# ARP traffic h1->h4
+sudo ovs-ofctl add-flow E1 "priority=200,in_port=1,arp,arp_spa=10.0.0.1,arp_tpa=10.0.0.4,actions=output:4"
+# ARP traffic h4->h1 
+sudo ovs-ofctl add-flow E1 "priority=200,in_port=4,arp,arp_spa=10.0.0.4,arp_tpa=10.0.0.1,actions=output:1"
+# IP traffic h1->h4
+sudo ovs-ofctl add-flow E1 "priority=200,in_port=1,ip,nw_src=10.0.0.1,nw_dst=10.0.0.4,actions=output:4"
+# IP traffic h4->h1
+sudo ovs-ofctl add-flow E1 "priority=200,in_port=4,ip,nw_src=10.0.0.4,nw_dst=10.0.0.1,actions=output:1"
 
-# A1 Switch Rules (Priority 85)  
-sudo ovs-ofctl add-flow A1 "priority=85,ip,nw_src=10.0.0.1,nw_dst=10.0.0.4,actions=output:2"
-sudo ovs-ofctl add-flow A1 "priority=85,ip,nw_src=10.0.0.4,nw_dst=10.0.0.1,actions=output:1"
+# GREEN PATH: h1<->h4 (Priority 200)
+# ARP traffic E1->E2 (h1->h4)
+sudo ovs-ofctl add-flow A1 "priority=200,in_port=1,arp,arp_spa=10.0.0.1,arp_tpa=10.0.0.4,actions=output:2"
+# ARP traffic E2->E1 (h4->h1)
+sudo ovs-ofctl add-flow A1 "priority=200,in_port=2,arp,arp_spa=10.0.0.4,arp_tpa=10.0.0.1,actions=output:1"
+# IP traffic E1->E2 (h1->h4)
+sudo ovs-ofctl add-flow A1 "priority=200,in_port=1,ip,nw_src=10.0.0.1,nw_dst=10.0.0.4,actions=output:2"
+# IP traffic E2->E1 (h4->h1)
+sudo ovs-ofctl add-flow A1 "priority=200,in_port=2,ip,nw_src=10.0.0.4,nw_dst=10.0.0.1,actions=output:1"
 
-# E2 Switch Rules (Priority 85)
-sudo ovs-ofctl add-flow E2 "priority=85,ip,nw_src=10.0.0.1,nw_dst=10.0.0.4,actions=output:1"
-sudo ovs-ofctl add-flow E2 "priority=85,ip,nw_src=10.0.0.4,nw_dst=10.0.0.1,actions=output:4"
+# GREEN PATH: h1<->h4 (Priority 200)
+# ARP traffic A1->h4 (from h1)
+sudo ovs-ofctl add-flow E2 "priority=200,in_port=4,arp,arp_spa=10.0.0.1,arp_tpa=10.0.0.4,actions=output:1"
+# ARP traffic h4->A1 (to h1)
+sudo ovs-ofctl add-flow E2 "priority=200,in_port=1,arp,arp_spa=10.0.0.4,arp_tpa=10.0.0.1,actions=output:4"
+# IP traffic A1->h4 (from h1)
+sudo ovs-ofctl add-flow E2 "priority=200,in_port=4,ip,nw_src=10.0.0.1,nw_dst=10.0.0.4,actions=output:1"
+# IP traffic h4->A1 (to h1)
+sudo ovs-ofctl add-flow E2 "priority=200,in_port=1,ip,nw_src=10.0.0.4,nw_dst=10.0.0.1,actions=output:4"
+
+
 
 echo "✅ GREEN PATH h1 <-> h4 installed (Priority 85)"
 

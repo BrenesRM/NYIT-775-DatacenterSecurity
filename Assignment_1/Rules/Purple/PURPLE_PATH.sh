@@ -28,33 +28,31 @@ done
 
 echo "âœ… All switches initialized with base flow rules."
 
-###########################################
-# PURPLE PATH (Priority 60-65): h10 (10.0.0.10) <-> h13 (10.0.0.13)
-# Forward Path: h10 -> E4(eth1) -> E4(eth5) -> A5(eth1) -> A5(eth2) -> E5(eth5) -> E5(eth1) -> h13
-# Reverse Path: h13 -> E5(eth1) -> E5(eth5) -> A5(eth2) -> A5(eth1) -> E4(eth5) -> E4(eth1) -> h10
-###########################################
+# ======================
+# PURPLE PATH: h10 (10.0.0.10) <-> h13 (10.0.0.13)
+# Route: h10 -> E4 -> A5 -> E5 -> h13
+# Priority 65 (same as RED, but different destinations)
+# ======================
 
-echo "[*] Installing PURPLE PATH: h10 <-> h13 (Priority 60-65)..."
+echo "[*] Installing PURPLE PATH: h10 <-> h13 (Priority 65)..."
 
-# --- E4 Switch (h10 connected to E4-eth1) ---
-# Forward: h10(10.0.0.10) -> output to A5 (port 5)
+# E4 Switch Rules (shared with RED path but different destination)
+sudo ovs-ofctl add-flow E4 "priority=65,in_port=1,arp,arp_spa=10.0.0.10,arp_tpa=10.0.0.13,actions=output:5"
+sudo ovs-ofctl add-flow E4 "priority=65,in_port=5,arp,arp_spa=10.0.0.13,arp_tpa=10.0.0.10,actions=output:1"
 sudo ovs-ofctl add-flow E4 "priority=65,in_port=1,ip,nw_src=10.0.0.10,nw_dst=10.0.0.13,actions=output:5"
-# Reverse: From A5 (port 5) -> output to h10 (port 1)
 sudo ovs-ofctl add-flow E4 "priority=65,in_port=5,ip,nw_src=10.0.0.13,nw_dst=10.0.0.10,actions=output:1"
 
-# --- A5 Switch (Connected to E4-eth5 and E5-eth5) ---
-# Forward: From E4 (port 1) -> output to E5 (port 2)
+# A5 Switch Rules (shared with RED path but different output port)
+sudo ovs-ofctl add-flow A5 "priority=65,in_port=1,arp,arp_spa=10.0.0.10,arp_tpa=10.0.0.13,actions=output:2"
+sudo ovs-ofctl add-flow A5 "priority=65,in_port=2,arp,arp_spa=10.0.0.13,arp_tpa=10.0.0.10,actions=output:1"
 sudo ovs-ofctl add-flow A5 "priority=65,in_port=1,ip,nw_src=10.0.0.10,nw_dst=10.0.0.13,actions=output:2"
-# Reverse: From E5 (port 2) -> output back to E4 (port 1)
 sudo ovs-ofctl add-flow A5 "priority=65,in_port=2,ip,nw_src=10.0.0.13,nw_dst=10.0.0.10,actions=output:1"
 
-# --- E5 Switch (h13 connected to E5-eth1) ---
-# Forward: From A5 (port 5) -> output to h13 (port 1)
+# E5 Switch Rules (new switch for PURPLE path)
+sudo ovs-ofctl add-flow E5 "priority=65,in_port=5,arp,arp_spa=10.0.0.10,arp_tpa=10.0.0.13,actions=output:1"
+sudo ovs-ofctl add-flow E5 "priority=65,in_port=1,arp,arp_spa=10.0.0.13,arp_tpa=10.0.0.10,actions=output:5"
 sudo ovs-ofctl add-flow E5 "priority=65,in_port=5,ip,nw_src=10.0.0.10,nw_dst=10.0.0.13,actions=output:1"
-# Reverse: h13(10.0.0.13) -> output back to A5 (port 5)
 sudo ovs-ofctl add-flow E5 "priority=65,in_port=1,ip,nw_src=10.0.0.13,nw_dst=10.0.0.10,actions=output:5"
-
-echo "[âœ“] PURPLE PATH h10 <-> h13 installed (Priority 65)"
 
 ##########################################
 # VERIFICATION AND DIAGNOSTICS

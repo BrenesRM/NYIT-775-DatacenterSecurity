@@ -33,18 +33,35 @@ echo "âœ… All switches initialized with base flow rules."
 # Priority 70-79: Path 2 (h3 <-> h4) - BLUE PATH 
 ###########################################
 
-echo "[*] Installing BLUE PATH: h3 <-> h4 (Priority 70-79)..."
+# BLUE PATH: h3<->h4 (Priority 175)
+# ARP traffic h3->h4
+sudo ovs-ofctl add-flow E1 "priority=175,in_port=3,arp,arp_spa=10.0.0.3,arp_tpa=10.0.0.4,actions=output:4"
+# ARP traffic h4->h3
+sudo ovs-ofctl add-flow E1 "priority=175,in_port=4,arp,arp_spa=10.0.0.4,arp_tpa=10.0.0.3,actions=output:3"
+# IP traffic h3->h4
+sudo ovs-ofctl add-flow E1 "priority=175,in_port=3,ip,nw_src=10.0.0.3,nw_dst=10.0.0.4,actions=output:4"
+# IP traffic h4->h3
+sudo ovs-ofctl add-flow E1 "priority=175,in_port=4,ip,nw_src=10.0.0.4,nw_dst=10.0.0.3,actions=output:3"
 
-sudo ovs-ofctl add-flow E1 "priority=70,in_port=3,actions=output:4"
-sudo ovs-ofctl add-flow E1 "priority=70,in_port=4,actions=output:3"
+# BLUE PATH: h3<->h4 (Priority 175)
+# ARP traffic E1->E2 (h3->h4)
+sudo ovs-ofctl add-flow A1 "priority=175,in_port=1,arp,arp_spa=10.0.0.3,arp_tpa=10.0.0.4,actions=output:2"
+# ARP traffic E2->E1 (h4->h3)
+sudo ovs-ofctl add-flow A1 "priority=175,in_port=2,arp,arp_spa=10.0.0.4,arp_tpa=10.0.0.3,actions=output:1"
+# IP traffic E1->E2 (h3->h4)
+sudo ovs-ofctl add-flow A1 "priority=175,in_port=1,ip,nw_src=10.0.0.3,nw_dst=10.0.0.4,actions=output:2"
+# IP traffic E2->E1 (h4->h3)
+sudo ovs-ofctl add-flow A1 "priority=175,in_port=2,ip,nw_src=10.0.0.4,nw_dst=10.0.0.3,actions=output:1"
 
-sudo ovs-ofctl add-flow A1 "priority=70,in_port=1,actions=output:2"
-sudo ovs-ofctl add-flow A1 "priority=70,in_port=2,actions=output:1"
-
-sudo ovs-ofctl add-flow E2 "priority=70,in_port=4,actions=output:1"
-sudo ovs-ofctl add-flow E2 "priority=70,in_port=1,actions=output:4"
-
-echo "[âœ“] BLUE PATH rules installed for h3 <-> h4 communication"
+# BLUE PATH: h3<->h4 (Priority 175)
+# ARP traffic A1->h4 (from h3)
+sudo ovs-ofctl add-flow E2 "priority=175,in_port=4,arp,arp_spa=10.0.0.3,arp_tpa=10.0.0.4,actions=output:1"
+# ARP traffic h4->A1 (to h3)
+sudo ovs-ofctl add-flow E2 "priority=175,in_port=1,arp,arp_spa=10.0.0.4,arp_tpa=10.0.0.3,actions=output:4"
+# IP traffic A1->h4 (from h3)
+sudo ovs-ofctl add-flow E2 "priority=175,in_port=4,ip,nw_src=10.0.0.3,nw_dst=10.0.0.4,actions=output:1"
+# IP traffic h4->A1 (to h3)
+sudo ovs-ofctl add-flow E2 "priority=175,in_port=1,ip,nw_src=10.0.0.4,nw_dst=10.0.0.3,actions=output:4"
 
 ##########################################
 # VERIFICATION AND DIAGNOSTICS

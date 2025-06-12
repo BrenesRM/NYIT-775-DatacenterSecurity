@@ -1,6 +1,9 @@
-A14 flows (PINK only):
- cookie=0x0, duration=1.426s, table=0, n_packets=0, n_bytes=0, priority=55,arp,in_port="A14-eth1",arp_spa=10.0.0.38,arp_tpa=10.0.0.43 actions=output:"A14-eth3"
- cookie=0x0, duration=1.382s, table=0, n_packets=0, n_bytes=0, priority=55,arp,in_port="A14-eth3",arp_spa=10.0.0.43,arp_tpa=10.0.0.38 actions=output:"A14-eth1"
- cookie=0x0, duration=1.339s, table=0, n_packets=0, n_bytes=0, priority=55,ip,in_port="A14-eth1",nw_src=10.0.0.38,nw_dst=10.0.0.43 actions=output:"A14-eth3"
- cookie=0x0, duration=1.298s, table=0, n_packets=0, n_bytes=0, priority=55,ip,in_port="A14-eth3",nw_src=10.0.0.43,nw_dst=10.0.0.38 actions=output:"A14-eth1"
- cookie=0x0, duration=0.557s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop
+A15 flows (PINK only):
+cookie=0x0, duration=778.385s, table=0, n_packets=4, n_bytes=168, priority=60,arp,in_port="A15-eth1",arp_spa=10.0.0.37,arp_tpa=10.0.0.45 actions=output:"A15-eth3"
+ cookie=0x0, duration=778.336s, table=0, n_packets=4, n_bytes=168, priority=60,arp,in_port="A15-eth3",arp_spa=10.0.0.45,arp_tpa=10.0.0.37 actions=output:"A15-eth1"
+ cookie=0x0, duration=778.293s, table=0, n_packets=9, n_bytes=882, priority=60,ip,in_port="A15-eth1",nw_src=10.0.0.37,nw_dst=10.0.0.45 actions=output:"A15-eth3"
+ cookie=0x0, duration=778.251s, table=0, n_packets=9, n_bytes=882, priority=60,ip,in_port="A15-eth3",nw_src=10.0.0.45,nw_dst=10.0.0.37 actions=output:"A15-eth1"
+ cookie=0x0, duration=777.847s, table=0, n_packets=4, n_bytes=168, priority=55,arp,in_port="A15-eth1",arp_spa=10.0.0.38,arp_tpa=10.0.0.43 actions=output:"A15-eth3"
+ cookie=0x0, duration=777.812s, table=0, n_packets=4, n_bytes=168, priority=55,arp,in_port="A15-eth3",arp_spa=10.0.0.43,arp_tpa=10.0.0.38 actions=output:"A15-eth1"
+ cookie=0x0, duration=777.788s, table=0, n_packets=6, n_bytes=588, priority=55,ip,in_port="A15-eth1",nw_src=10.0.0.38,nw_dst=10.0.0.43 actions=output:"A15-eth3"
+ cookie=0x0, duration=777.757s, table=0, n_packets=6, n_bytes=588, priority=55,ip,in_port="A15-eth3",nw_src=10.0.0.43,nw_dst=10.0.0.38 actions=output:"A15-eth1"

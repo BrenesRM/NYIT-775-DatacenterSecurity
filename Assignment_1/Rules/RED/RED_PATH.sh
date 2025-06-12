@@ -28,54 +28,43 @@ done
 
 echo "âœ… All switches initialized with base flow rules."
 
-###########################################
-# PRIORITY ALLOCATION STRATEGY:
-# Priority 80-89: Path 1 (h1 <-> h4) - GREEN PATH
-# Priority 40-49: Backup/Alternative paths
-###########################################
-
-###########################################
-# RED PATH (Priority 60-69): h10 (10.0.0.10) <-> h22 (10.0.0.22)
-# Forward Path: h10 -> E4(eth1) -> E4(eth5) -> A5(eth1) -> A5(eth4) -> C4(eth2) 
-#             -> C4(eth3) -> A8(eth4) -> A8(eth2) -> E8(eth5) -> E8(eth1) -> h22
-# Reverse Path: h22 -> E8(eth1) -> E8(eth5) -> A8(eth2) -> A8(eth4) -> C4(eth3)
-#             -> C4(eth2) -> A5(eth4) -> A5(eth1) -> E4(eth5) -> E4(eth1) -> h10
-###########################################
+# ======================
+# RED PATH: h10 (10.0.0.10) <-> h22 (10.0.0.22)
+# Route: h10 -> E4 -> A5 -> C4 -> A8 -> E8 -> h22
+# Priority 65 (lowest)
+# ======================
 
 echo "[*] Installing RED PATH: h10 <-> h22 (Priority 65)..."
 
-# --- E4 Switch (h10 connected to E4-eth1) ---
-# Forward: h10(10.0.0.10) -> output to A5 (port 5)
+# E4 Switch Rules
+sudo ovs-ofctl add-flow E4 "priority=65,in_port=1,arp,arp_spa=10.0.0.10,arp_tpa=10.0.0.22,actions=output:5"
+sudo ovs-ofctl add-flow E4 "priority=65,in_port=5,arp,arp_spa=10.0.0.22,arp_tpa=10.0.0.10,actions=output:1"
 sudo ovs-ofctl add-flow E4 "priority=65,in_port=1,ip,nw_src=10.0.0.10,nw_dst=10.0.0.22,actions=output:5"
-# Reverse: From A5 (port 5) -> output to h10 (port 1)
 sudo ovs-ofctl add-flow E4 "priority=65,in_port=5,ip,nw_src=10.0.0.22,nw_dst=10.0.0.10,actions=output:1"
 
-# --- A5 Switch (Connected to E4-eth5 and C4-eth2) ---
-# Forward: From E4 (port 1) -> output to C4 (port 4)
+# A5 Switch Rules
+sudo ovs-ofctl add-flow A5 "priority=65,in_port=1,arp,arp_spa=10.0.0.10,arp_tpa=10.0.0.22,actions=output:4"
+sudo ovs-ofctl add-flow A5 "priority=65,in_port=4,arp,arp_spa=10.0.0.22,arp_tpa=10.0.0.10,actions=output:1"
 sudo ovs-ofctl add-flow A5 "priority=65,in_port=1,ip,nw_src=10.0.0.10,nw_dst=10.0.0.22,actions=output:4"
-# Reverse: From C4 (port 4) -> output back to E4 (port 1)
 sudo ovs-ofctl add-flow A5 "priority=65,in_port=4,ip,nw_src=10.0.0.22,nw_dst=10.0.0.10,actions=output:1"
 
-# --- C4 Switch (Core switch) ---
-# Forward: From A5 (port 2) -> output to A8 (port 3)
+# C4 Switch Rules
+sudo ovs-ofctl add-flow C4 "priority=65,in_port=2,arp,arp_spa=10.0.0.10,arp_tpa=10.0.0.22,actions=output:3"
+sudo ovs-ofctl add-flow C4 "priority=65,in_port=3,arp,arp_spa=10.0.0.22,arp_tpa=10.0.0.10,actions=output:2"
 sudo ovs-ofctl add-flow C4 "priority=65,in_port=2,ip,nw_src=10.0.0.10,nw_dst=10.0.0.22,actions=output:3"
-# Reverse: From A8 (port 3) -> output back to A5 (port 2)
 sudo ovs-ofctl add-flow C4 "priority=65,in_port=3,ip,nw_src=10.0.0.22,nw_dst=10.0.0.10,actions=output:2"
 
-# --- A8 Switch (Connected to C4-eth3 and E8-eth5) ---
-# Forward: From C4 (port 4) -> output to E8 (port 2)
+# A8 Switch Rules
+sudo ovs-ofctl add-flow A8 "priority=65,in_port=4,arp,arp_spa=10.0.0.10,arp_tpa=10.0.0.22,actions=output:2"
+sudo ovs-ofctl add-flow A8 "priority=65,in_port=2,arp,arp_spa=10.0.0.22,arp_tpa=10.0.0.10,actions=output:4"
 sudo ovs-ofctl add-flow A8 "priority=65,in_port=4,ip,nw_src=10.0.0.10,nw_dst=10.0.0.22,actions=output:2"
-# Reverse: From E8 (port 2) -> output back to C4 (port 4)
 sudo ovs-ofctl add-flow A8 "priority=65,in_port=2,ip,nw_src=10.0.0.22,nw_dst=10.0.0.10,actions=output:4"
 
-# --- E8 Switch (h22 connected to E8-eth1) ---
-# Forward: From A8 (port 5) -> output to h22 (port 1)
+# E8 Switch Rules
+sudo ovs-ofctl add-flow E8 "priority=65,in_port=5,arp,arp_spa=10.0.0.10,arp_tpa=10.0.0.22,actions=output:1"
+sudo ovs-ofctl add-flow E8 "priority=65,in_port=1,arp,arp_spa=10.0.0.22,arp_tpa=10.0.0.10,actions=output:5"
 sudo ovs-ofctl add-flow E8 "priority=65,in_port=5,ip,nw_src=10.0.0.10,nw_dst=10.0.0.22,actions=output:1"
-# Reverse: h22(10.0.0.22) -> output back to A8 (port 5)
 sudo ovs-ofctl add-flow E8 "priority=65,in_port=1,ip,nw_src=10.0.0.22,nw_dst=10.0.0.10,actions=output:5"
-
-echo "[âœ“] RED PATH h10 <-> h22 installed (Priority 65)"
-
 
 ##########################################
 # VERIFICATION AND DIAGNOSTICS
