@@ -97,8 +97,8 @@ This folder contains a **Mininet-based Fat‑Tree (k=6)** topology script, SDN f
 | Blue     | h3 ↔ h4        | E1 → A1 → E2                                  | 175      |
 | Red      | h10 ↔ h22      | E4 → A5 → C4 → A8 → E8                         | 65       |
 | Purple   | h10 ↔ h13      | E4 → A5 → E5                                   | 65       |
-| Orange   | h37 ↔ h45      | E13 → A13 → E15                                | 60       |
-| Pink     | h38 ↔ h43      | E13 → A14 → E15                                | 55       |
+| Orange   | h37 ↔ h45      | E13 → A15 → E15                                | 60       |
+| Pink     | h38 ↔ h43      | E13 → A15 → E15                                | 55       |
 
 Reverse flow rules are installed for bidirectional traffic.
 
@@ -129,5 +129,6 @@ To fully execute and log your assignment results:
 - Assignment PDF and HTML in this directory.
 - `Custom_FatTree_6Pods.py` contains topology details.
 - `Create_flow_rules_all.sh` orchestrates everything.
+- `Assigment_1.html` Architecture of the Fat Tree.
 
 ---
