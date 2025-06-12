@@ -1,6 +1,0 @@
-A14 flows (PINK only):
- cookie=0x0, duration=1.426s, table=0, n_packets=0, n_bytes=0, priority=55,arp,in_port="A14-eth1",arp_spa=10.0.0.38,arp_tpa=10.0.0.43 actions=output:"A14-eth3"
- cookie=0x0, duration=1.382s, table=0, n_packets=0, n_bytes=0, priority=55,arp,in_port="A14-eth3",arp_spa=10.0.0.43,arp_tpa=10.0.0.38 actions=output:"A14-eth1"
- cookie=0x0, duration=1.339s, table=0, n_packets=0, n_bytes=0, priority=55,ip,in_port="A14-eth1",nw_src=10.0.0.38,nw_dst=10.0.0.43 actions=output:"A14-eth3"
- cookie=0x0, duration=1.298s, table=0, n_packets=0, n_bytes=0, priority=55,ip,in_port="A14-eth3",nw_src=10.0.0.43,nw_dst=10.0.0.38 actions=output:"A14-eth1"
- cookie=0x0, duration=0.557s, table=0, n_packets=0, n_bytes=0, priority=1 actions=drop

@@ -183,28 +183,28 @@ sudo ovs-ofctl add-flow E15 "priority=60,in_port=3,ip,nw_src=10.0.0.45,nw_dst=10
 
 # ======================
 # PINK PATH: h38 (10.0.0.38) <-> h43 (10.0.0.43)
-# Route: h38 -> E13(port2->port5) -> A14(port1->port3) -> E15(port5->port1) -> h43
+# Route: h38 -> E13(port2->port6) -> A15(port1->port3) -> E15(port6->port1) -> h43
 # Priority: 55 (lowest)
 # ======================
 echo "[*] Installing PINK PATH: h38 <-> h43 (Priority 55)..."
 
 # E13 Switch Rules
-sudo ovs-ofctl add-flow E13 "priority=55,in_port=2,arp,arp_spa=10.0.0.38,arp_tpa=10.0.0.43,actions=output:5"
-sudo ovs-ofctl add-flow E13 "priority=55,in_port=5,arp,arp_spa=10.0.0.43,arp_tpa=10.0.0.38,actions=output:2"
-sudo ovs-ofctl add-flow E13 "priority=55,in_port=2,ip,nw_src=10.0.0.38,nw_dst=10.0.0.43,actions=output:5"
-sudo ovs-ofctl add-flow E13 "priority=55,in_port=5,ip,nw_src=10.0.0.43,nw_dst=10.0.0.38,actions=output:2"
+sudo ovs-ofctl add-flow E13 "priority=55,in_port=2,arp,arp_spa=10.0.0.38,arp_tpa=10.0.0.43,actions=output:6"
+sudo ovs-ofctl add-flow E13 "priority=55,in_port=6,arp,arp_spa=10.0.0.43,arp_tpa=10.0.0.38,actions=output:2"
+sudo ovs-ofctl add-flow E13 "priority=55,in_port=2,ip,nw_src=10.0.0.38,nw_dst=10.0.0.43,actions=output:6"
+sudo ovs-ofctl add-flow E13 "priority=55,in_port=6,ip,nw_src=10.0.0.43,nw_dst=10.0.0.38,actions=output:2"
 
-# A14 Switch Rules
-sudo ovs-ofctl add-flow A14 "priority=55,in_port=1,arp,arp_spa=10.0.0.38,arp_tpa=10.0.0.43,actions=output:3"
-sudo ovs-ofctl add-flow A14 "priority=55,in_port=3,arp,arp_spa=10.0.0.43,arp_tpa=10.0.0.38,actions=output:1"
-sudo ovs-ofctl add-flow A14 "priority=55,in_port=1,ip,nw_src=10.0.0.38,nw_dst=10.0.0.43,actions=output:3"
-sudo ovs-ofctl add-flow A14 "priority=55,in_port=3,ip,nw_src=10.0.0.43,nw_dst=10.0.0.38,actions=output:1"
+# A15 Switch Rules
+sudo ovs-ofctl add-flow A15 "priority=55,in_port=1,arp,arp_spa=10.0.0.38,arp_tpa=10.0.0.43,actions=output:3"
+sudo ovs-ofctl add-flow A15 "priority=55,in_port=3,arp,arp_spa=10.0.0.43,arp_tpa=10.0.0.38,actions=output:1"
+sudo ovs-ofctl add-flow A15 "priority=55,in_port=1,ip,nw_src=10.0.0.38,nw_dst=10.0.0.43,actions=output:3"
+sudo ovs-ofctl add-flow A15 "priority=55,in_port=3,ip,nw_src=10.0.0.43,nw_dst=10.0.0.38,actions=output:1"
 
 # E15 Switch Rules
-sudo ovs-ofctl add-flow E15 "priority=55,in_port=5,arp,arp_spa=10.0.0.38,arp_tpa=10.0.0.43,actions=output:1"
-sudo ovs-ofctl add-flow E15 "priority=55,in_port=1,arp,arp_spa=10.0.0.43,arp_tpa=10.0.0.38,actions=output:5"
-sudo ovs-ofctl add-flow E15 "priority=55,in_port=5,ip,nw_src=10.0.0.38,nw_dst=10.0.0.43,actions=output:1"
-sudo ovs-ofctl add-flow E15 "priority=55,in_port=1,ip,nw_src=10.0.0.43,nw_dst=10.0.0.38,actions=output:5"
+sudo ovs-ofctl add-flow E15 "priority=55,in_port=6,arp,arp_spa=10.0.0.38,arp_tpa=10.0.0.43,actions=output:1"
+sudo ovs-ofctl add-flow E15 "priority=55,in_port=1,arp,arp_spa=10.0.0.43,arp_tpa=10.0.0.38,actions=output:6"
+sudo ovs-ofctl add-flow E15 "priority=55,in_port=6,ip,nw_src=10.0.0.38,nw_dst=10.0.0.43,actions=output:1"
+sudo ovs-ofctl add-flow E15 "priority=55,in_port=1,ip,nw_src=10.0.0.43,nw_dst=10.0.0.38,actions=output:6"
 
 # ======================
 # DEFAULT RULES
