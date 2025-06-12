@@ -28,33 +28,30 @@ done
 
 echo "âœ… All switches initialized with base flow rules."
 
-###########################################
-# PINK PATH (Priority 60-65): h38 <-> h45
-# Forward Path: h38 -> E13(eth2) -> E13(eth5) -> A14(eth1) -> A14(eth3) -> E15(eth5) -> E15(eth3) -> h45
-# Reverse Path: h45 -> E15(eth3) -> E15(eth5) -> A14(eth3) -> A14(eth1) -> E13(eth5) -> E13(eth2) -> h38
-###########################################
+# ======================
+# PINK PATH: h38 (10.0.0.38) <-> h43 (10.0.0.43)
+# Route: h38 -> E13(port2->port6) -> A15(port1->port3) -> E15(port6->port1) -> h43
+# Priority: 55 (lowest)
+# ======================
+echo "[*] Installing PINK PATH: h38 <-> h43 (Priority 55)..."
 
-echo "[*] Installing PINK PATH: h38 <-> h45 (Priority 65)..."
+# E13 Switch Rules
+sudo ovs-ofctl add-flow E13 "priority=55,in_port=2,arp,arp_spa=10.0.0.38,arp_tpa=10.0.0.43,actions=output:6"
+sudo ovs-ofctl add-flow E13 "priority=55,in_port=6,arp,arp_spa=10.0.0.43,arp_tpa=10.0.0.38,actions=output:2"
+sudo ovs-ofctl add-flow E13 "priority=55,in_port=2,ip,nw_src=10.0.0.38,nw_dst=10.0.0.43,actions=output:6"
+sudo ovs-ofctl add-flow E13 "priority=55,in_port=6,ip,nw_src=10.0.0.43,nw_dst=10.0.0.38,actions=output:2"
 
-# --- E13 Switch (h38 connected to E13-eth2) ---
-# Forward: h38 -> output to A14 (port 5)
-sudo ovs-ofctl add-flow E13 "priority=65,in_port=2,actions=output:5"
-# Reverse: From A14 (port 5) -> output to h38 (port 2)
-sudo ovs-ofctl add-flow E13 "priority=65,in_port=5,actions=output:2"
+# A15 Switch Rules
+sudo ovs-ofctl add-flow A15 "priority=55,in_port=1,arp,arp_spa=10.0.0.38,arp_tpa=10.0.0.43,actions=output:3"
+sudo ovs-ofctl add-flow A15 "priority=55,in_port=3,arp,arp_spa=10.0.0.43,arp_tpa=10.0.0.38,actions=output:1"
+sudo ovs-ofctl add-flow A15 "priority=55,in_port=1,ip,nw_src=10.0.0.38,nw_dst=10.0.0.43,actions=output:3"
+sudo ovs-ofctl add-flow A15 "priority=55,in_port=3,ip,nw_src=10.0.0.43,nw_dst=10.0.0.38,actions=output:1"
 
-# --- A14 Switch (Connected to E13-eth5 and E15-eth5) ---
-# Forward: From E13 (port 1) -> output to E15 (port 3)
-sudo ovs-ofctl add-flow A14 "priority=65,in_port=1,actions=output:3"
-# Reverse: From E15 (port 3) -> output back to E13 (port 1)
-sudo ovs-ofctl add-flow A14 "priority=65,in_port=3,actions=output:1"
-
-# --- E15 Switch (h45 connected to E15-eth3) ---
-# Forward: From A14 (port 5) -> output to h45 (port 3)
-sudo ovs-ofctl add-flow E15 "priority=65,in_port=5,actions=output:3"
-# Reverse: h45 -> output back to A14 (port 5)
-sudo ovs-ofctl add-flow E15 "priority=65,in_port=3,actions=output:5"
-
-echo "[âœ“] PINK PATH h38 <-> h45 installed (Priority 65)"
+# E15 Switch Rules
+sudo ovs-ofctl add-flow E15 "priority=55,in_port=6,arp,arp_spa=10.0.0.38,arp_tpa=10.0.0.43,actions=output:1"
+sudo ovs-ofctl add-flow E15 "priority=55,in_port=1,arp,arp_spa=10.0.0.43,arp_tpa=10.0.0.38,actions=output:6"
+sudo ovs-ofctl add-flow E15 "priority=55,in_port=6,ip,nw_src=10.0.0.38,nw_dst=10.0.0.43,actions=output:1"
+sudo ovs-ofctl add-flow E15 "priority=55,in_port=1,ip,nw_src=10.0.0.43,nw_dst=10.0.0.38,actions=output:6"
 
 ##########################################
 # VERIFICATION AND DIAGNOSTICS
