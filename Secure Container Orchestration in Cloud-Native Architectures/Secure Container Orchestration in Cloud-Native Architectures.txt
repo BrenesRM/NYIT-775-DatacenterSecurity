@@ -16,11 +16,34 @@
 \maketitle
 
 \begin{abstract}
-This reasearch paper analyzes the security challenges and solutions for container orchestration within cloud-native environments. It also contrasts these approaches with traditional methodologies used in monolithic architecture applications, highlighting their security, scalability, and flexibility limitations. Emphasis is placed on Kubernetes and Docker security practices, highlighting IAM policies, network segmentation, runtime security, and compliance automation. The proposed methodology leverages policy-as-code (PAC) and runtime monitoring to strengthen container security and orchestration. It also highlights the advantages of adopting a modern approach to continuous integration and continuous development (CI/CD). It streamlines development times and improves coordination between operations, security, and development teams, enabling a faster and more adaptive response to changes. The results will demonstrate a measurable reduction in the attack surface within multi-tenant cloud deployments and real-time monitoring and analysis of code, containers, libraries, and orchestration components. The proposed solution also enables a highly automated environment for continuous testing and real-time metrics, facilitating data-driven discussions and stakeholder decision-making.
+This research paper analyzes the security challenges and solutions for container orchestration within cloud-native environments. It also contrasts these approaches with traditional methodologies used in monolithic architecture applications, highlighting their security, scalability, and flexibility limitations. Emphasis is placed on Kubernetes and Docker security practices, highlighting IAM policies, network segmentation, runtime security, and compliance automation. The proposed methodology leverages policy-as-code (PAC) and runtime monitoring to strengthen container security and orchestration. It also highlights the advantages of adopting a modern approach to continuous integration and continuous development (CI/CD); furthermore, incorporating the recommendations of highly mature institutions such as NIST and CISA adds a layer of strategic complexity that significantly strengthens organizations' security posture. These organizations provide guidelines for the secure development of services and application creation and offer a comprehensive view that encompasses ongoing operations, cloud migration processes, and proactive management of cybersecurity posture. By adopting these frameworks, organizations can remain up-to-date, resilient, and aligned with industry standards, which is crucial to addressing the current challenges of the digital environment. It streamlines development times and improves coordination between operations, security, and development teams, enabling a faster and more adaptive response to changes. The results will demonstrate a measurable reduction in the attack surface within multi-tenant cloud deployments and real-time monitoring and analysis of code, containers, libraries, and orchestration components. The proposed solution also enables a highly automated environment for continuous testing and real-time metrics, facilitating data-driven discussions and stakeholder decision-making.
 \end{abstract}
 
 \section{Introduction}
-In IT, taking a pause and analyzing what secure container orchestration is and how it impacts cloud-native architectures is essential. As outlined in \cite{CSTR} and CISA's recommendations, the constant threats in today's digital environment and the increasing complexity of cloud environments demand stronger strategic and technical leadership than ever. This is no longer a secondary aspect: a lack of control and security in orchestration can allow the entry of malicious actors capable of destabilizing critical operations, disrupting essential services, and even affecting entire economies.
+In IT, taking a pause and analyzing what secure container orchestration is and how it impacts cloud-native architectures is essential. As outlined in \cite{CSTR} "Cloud Security Technical Reference Architecture." CISA's recommendations, the constant threats in today's digital environment and the increasing complexity of cloud environments demand stronger strategic and technical leadership than ever. This is no longer a secondary aspect: a lack of control and security in orchestration can allow the entry of malicious actors capable of destabilizing critical operations, disrupting essential services, and even affecting entire economies. Maintaining a solid posture based on the Cloud Security Technical Reference Architecture aims to provide a comprehensive view and structured guidance for all components involved in supporting security needs throughout the various phases of the cloud lifecycle. This includes everything from cloud deployment, adopting flexible solutions based on business requirements, continuous assurance of the architecture and its secure operation, and the ability to comply with industry standards, such as the Zero Trust model.
+
+As indicated by \cite{CSTR} "Cloud Security Technical Reference Architecture." CISA and the corresponding architectural references, security architecture in cloud environments can be divided into three key sections:
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\linewidth]{images/Cloud Security RACAS.jpg}
+    \caption{ Cloud Security Technical Reference Architecture Composition and Synergies, in \cite{CSTR}.}
+    \label{fig:cloud_security_architecture_synergies}
+\end{figure}
+
+Shared Services: This section promotes the use of industry standards and the adoption of pre-assessed baseline configurations. The goal is to ensure consistency, interoperability, and security from the most fundamental layers of the infrastructure.
+
+Cloud Migration: This phase proposes various strategies for migrating from traditional models, such as monolithic architectures (where the entire application resides on a single server), to distributed and scalable cloud environments. Different migration scenarios are considered depending on the application type, dependency level, and business needs.
+
+Cloud Security Posture Management (CSPM): This section defines the concept of CSPM and details the components related to cloud security posture management. It includes security, monitoring, secure development, continuous integration, risk assessment, incident management, and threat response tools in cloud environments.
+
+In the specific case of applications that have been migrated or developed from scratch using a Platform as a Service (PaaS) architecture and technology approach, such as the use of containers with Docker and their orchestration through Kubernetes, it is important to consider that these technologies can be provided by various market providers, such as Microsoft Azure, Amazon Web Services (AWS), or Google Cloud Platform (GCP). The provider and deployment model choice will directly impact security configuration, resource governance, and integration with other enterprise solutions.
+
+However, what is a "dockerized" application or one inside a container? A Docker container is a standardized, executable unit of software that packages code along with all its dependencies, libraries, and configurations necessary for the application to run quickly, consistently, and reliably in any environment, whether development, testing, or production.
+
+It is important to note that while Docker is one of the most popular technologies for containerization, it is not the only one. Other container tools and engines widely used in the industry, such as Podman, contained CRI-O, LXC, and runs, each with its features, use cases, and levels of integration with orchestration platforms like Kubernetes.
+
+According to \cite{Kubernetes}, "Kubernetes, also known as K8s, is an open-source system for automating containerized applications' deployment, scaling, and management." This platform allows for efficient orchestration of container management, facilitating control over the availability, scalability, and distribution of applications. In addition, it offers capabilities for handling container versioning and updates, provided it is appropriately configured, thus ensuring operational continuity and consistency in dynamic and distributed environments.
 
 \section{Background and Related Work}
 Numerous studies discuss container vulnerabilities and orchestration frameworks:\\
@@ -155,12 +178,18 @@ Using kubectl.Ai to complete and retrive AI yaml autogenerated:\\
 
 \end{thebibliography}
 
+
+
+
+
 \appendix
 \section{Meeting Minutes}
 \begin{itemize}
-  \item Kick-off: Define project scope
-  \item Week 2: Setup EKS environment
-  \item Week 4: Integrated Falco and OPA
+  \item Kick-off: 26-5-2025 - Define project scope
+  \item Week 8: 18-6-2025 - Define responsibilities in the paper: Marlon (Abstrack, Introduction and Background and Related Work)
+  \item Week 8: 18-6-2025 - Define responsibilities in the paper: Jin (Problem Statement, Architecture Overview and Security Measures)
+  \item Week 8: 18-6-2025 - Define responsibilities in the paper: Jason (Analysis and Discussion, example and Conclusion)
+  \item Week 11: Review of the paper
 \end{itemize}
 
 \end{document}
