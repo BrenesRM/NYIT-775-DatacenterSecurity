@@ -1,5 +1,0 @@
-
-sudo mn -c
-
-sudo mn --custom Custom_Fat-Tree.py --topo mytopo --link=tc --arp --mac --controller=remote,ip=127.0.0.1,port=6633 --switch ovsk,protocol=Openflow10
-sudo mn --custom Custom_Fat-Tree.py --topo mytopo --link=tc --arp --mac --controller=remote,ip=127.0.0.1,port=6633 --switch ovsk,protocol=Openflow10
