@@ -7,6 +7,8 @@ Downloads$ fvctl -f pwd get-config
 
 sudo mn -c
 Downloads$ sudo python3 Custom_Fat-Tree.py
+fvctl -f pwd list-datapaths
+fvctl -f pwd list-flowspace
 
 py net.get("s1").dpid
 
