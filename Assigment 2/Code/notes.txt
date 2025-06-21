@@ -1,5 +1,13 @@
+Downloads/flowvisor$ fvconfig load /etc/flowvisor/config.json
+Downloads$ sudo /etc/init.d/flowvisor start
+Downloads$ sudo /etc/init.d/flowvisor status
+Downloads$ tail -f /var/log/flowvisor/test.log
+Downloads$ fvctl -f pwd set-config --enable-topo-ctrl
+Downloads$ fvctl -f pwd get-config
 
 sudo mn -c
+Downloads$ sudo python3 Custom_Fat-Tree.py
 
-sudo mn --custom Custom_Fat-Tree.py --topo mytopo --link=tc --arp --mac --controller=remote,ip=127.0.0.1,port=6633 --switch ovsk,protocol=Openflow10
-sudo mn --custom Custom_Fat-Tree.py --topo mytopo --link=tc --arp --mac --controller=remote,ip=127.0.0.1,port=6633 --switch ovsk,protocol=Openflow10
+py net.get("s1").dpid
+
+Downloads$ sudo ./flowvisor_config.sh -c
