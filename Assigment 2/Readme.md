@@ -86,7 +86,7 @@ This project is part of an academic assignment and is free to use for educationa
 📧 Contact
 For questions or improvements, contact:
 
-Rafael Brenes | GitHub
+Marlon Brenes | GitHub
 
 🎯 Key Takeaways
 ✅ Learn Fat-Tree topology structure.
