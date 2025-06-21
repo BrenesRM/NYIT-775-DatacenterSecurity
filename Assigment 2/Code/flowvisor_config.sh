@@ -35,20 +35,19 @@ create_slice() {
     local controller_url=$2
     local admin_contact=$3
     local slice_pass=$4
-    
+
     echo -e "${YELLOW}Creating slice: $slice_name${NC}"
-    
-    fvctl -f /etc/flowvisor/passwd add-slice "$slice_name" "$controller_url" "$admin_contact"
-    
+
+    fvctl -f pwd add-slice "$slice_name" "$controller_url" "$admin_contact"
     if [ $? -eq 0 ]; then
         echo -e "${GREEN}Successfully created slice: $slice_name${NC}"
-        
-        # Set slice password
-        echo "$slice_pass" | fvctl -f /etc/flowvisor/passwd set-slice-passwd "$slice_name"
-        
-        # Set slice contact email
-        fvctl -f /etc/flowvisor/passwd set-slice-contact-email "$slice_name" "$admin_contact"
-        
+
+        # ✅ Set slice password correctly
+        fvctl -f pwd update-slice-password "$slice_name" "$slice_pass"
+
+        # ❌ This is not valid → comment it out or remove it
+        # fvctl -f pwd set-slice-contact-email "$slice_name" "$admin_contact"
+
     else
         echo -e "${RED}Failed to create slice: $slice_name${NC}"
     fi
@@ -64,12 +63,12 @@ create_flowspace() {
     
     echo "  Adding flowspace rule: $rule_name for $slice_name"
     
-    fvctl -f /etc/flowvisor/passwd add-flowspace "$switch_dpid" "$priority" "$match_string" "$slice_name"
+    fvctl -f pwd add-flowspace "$switch_dpid" "$priority" "$match_string" "$slice_name"
     
     if [ $? -eq 0 ]; then
-        echo -e "    ${GREEN}✓${NC} Flowspace rule added successfully"
+        echo -e "    ${GREEN}âœ“${NC} Flowspace rule added successfully"
     else
-        echo -e "    ${RED}✗${NC} Failed to add flowspace rule"
+        echo -e "    ${RED}âœ—${NC} Failed to add flowspace rule"
     fi
 }
 
@@ -82,15 +81,17 @@ configure_red_slice() {
     echo
     
     # Create Red slice
-    create_slice "Red" "tcp:127.0.0.1:4000" "red@datacenter.lab" "redpass"
+    create_slice "Red" "tcp:127.0.0.1:4000" "admin@Red" "redpass"
+    # create_slice "Red" "tcp:127.0.0.1:4000" "admin@Red"
+
     
     # Define switch DPIDs for Red slice
     declare -A red_switches=(
-        ["E3"]="00:00:00:00:02:03"
-        ["A2"]="00:00:00:00:01:02"
-        ["C4"]="00:00:00:00:00:04"
-        ["A5"]="00:00:00:00:01:05"
-        ["E4"]="00:00:00:00:02:04"
+        ["E3"]="0000000000000003"
+        ["A2"]="0000000000000002"
+        ["C4"]="0000000000000004"
+        ["A5"]="0000000000000005"
+        ["E4"]="0000000000000004"
     )
     
     # Add flowspace rules for Red slice switches
@@ -135,12 +136,12 @@ configure_green_slice() {
     
     # Define switch DPIDs for Green slice
     declare -A green_switches=(
-        ["E10"]="00:00:00:00:02:10"
-        ["E11"]="00:00:00:00:02:11"
-        ["E12"]="00:00:00:00:02:12"
-        ["A10"]="00:00:00:00:01:10"
-        ["A11"]="00:00:00:00:01:11"
-        ["A12"]="00:00:00:00:01:12"
+        ["E10"]="000000000000000a"
+        ["E11"]="000000000000000b"
+        ["E12"]="000000000000000c"
+        ["A10"]="000000000000000a"
+        ["A11"]="000000000000000b"
+        ["A12"]="000000000000000c"
     )
     
     # Add flowspace rules for Green slice
@@ -178,10 +179,10 @@ configure_blue_slice() {
     
     # Define switch DPIDs for Blue slice
     declare -A blue_switches=(
-        ["E11"]="00:00:00:00:02:11"
-        ["E12"]="00:00:00:00:02:12"
-        ["A11"]="00:00:00:00:01:11"
-        ["A12"]="00:00:00:00:01:12"
+        ["E11"]="000000000000000b"
+        ["E12"]="000000000000000c"
+        ["A11"]="000000000000000b"
+        ["A12"]="000000000000000c"
     )
     
     # Add flowspace rules for Blue slice
@@ -220,11 +221,11 @@ configure_pink_slice() {
     
     # Define switch DPIDs for Pink slice
     declare -A pink_switches=(
-        ["E12"]="00:00:00:00:02:12"
-        ["A12"]="00:00:00:00:01:12"
-        ["C7"]="00:00:00:00:00:07"
-        ["A15"]="00:00:00:00:01:15"
-        ["E15"]="00:00:00:00:02:15"
+        ["E12"]="000000000000000c"
+        ["A12"]="000000000000000c"
+        ["C7"]="0000000000000007"
+        ["A15"]="000000000000000f"
+        ["E15"]="000000000000000f"
     )
     
     # Add flowspace rules for Pink slice
@@ -290,10 +291,10 @@ verify_slices() {
     
     for slice in "${slices[@]}"; do
         echo "Checking slice: $slice"
-        if fvctl -f /etc/flowvisor/passwd list-slices | grep -q "$slice"; then
-            echo -e "  ${GREEN}✓${NC} $slice slice exists"
+        if fvctl -f pwd list-slices | grep -q "$slice"; then
+            echo -e "  ${GREEN}âœ“${NC} $slice slice exists"
         else
-            echo -e "  ${RED}✗${NC} $slice slice not found"
+            echo -e "  ${RED}âœ—${NC} $slice slice not found"
         fi
     done
     echo
