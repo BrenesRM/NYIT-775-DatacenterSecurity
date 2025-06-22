@@ -31,7 +31,7 @@ sudo fvctl -f pwd list-slices
 
 Create flowspace partitions:
 ---
-* Assign flowspace to blue slice*
+* Assign flowspace to Pink slice*
 fvctl -f pwd add-flowspace Pink_1 00000000000000001 1 in port=3,rw_src=10.0.0.3,rw_dst=10.0.0.4 Pink=7
 fvctl -f pwd add-flowspace Pink_2 000000000000001 1 in port=4,rw_src=10.0.0.4,rw_dst=10.0.0.3 Pink=7
 fvctl -f pwd add-flowspace Pink_3 000000000000002 1 in port=1,rw_src=10.0.0.4,rw_dst=10.0.0.3 Pink=7
@@ -39,7 +39,7 @@ fvctl -f pwd add-flowspace Pink_4 000000000000002 1 in port=4,rw_src=10.0.0.3,rw
 
 ---
 
-* Assign flowspace to red slice*
+* Assign flowspace to Purple slice*
 fvctl -f pwd add-flowspace Purple_1 000000000000003 1 in port=1,rw_src=10.0.0.7,rw_dst=10.0.0.4 Purple=7
 fvctl -f pwd add-flowspace Purple_2 000000000000003 1 in port=4,rw_src=10.0.0.4,rw_dst=10.0.0.7 Purple=7
 fvctl -f pwd add-flowspace Purple_3 000000000000002 1 in port=1,rw_src=10.0.0.4,rw_dst=10.0.0.7 Purple=7
