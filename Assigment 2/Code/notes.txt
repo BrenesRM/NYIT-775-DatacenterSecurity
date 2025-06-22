@@ -6,7 +6,7 @@ Downloads$ fvctl -f pwd set-config --enable-topo-ctrl
 Downloads$ fvctl -f pwd get-config
 
 sudo mn -c
-Downloads$ sudo python3 Custom_Fat-Tree.py
+Downloads$ sudo mn --custom ./Custom_FatTree_6Pods.py --topo=fattree --link=tc --switch ovsk,protocol=OpenFlow10 --controller=remote,ip=127.0.0.1,port=6633
 fvctl -f pwd list-datapaths
 fvctl -f pwd list-flowspace
 
