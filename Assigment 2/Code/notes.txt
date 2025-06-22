@@ -1,9 +1,12 @@
-Downloads/flowvisor$ fvconfig load /etc/flowvisor/config.json
+Downloads/flowvisor$ sudo fvconfig load /etc/flowvisor/config.json
 Downloads$ sudo /etc/init.d/flowvisor start
 Downloads$ sudo /etc/init.d/flowvisor status
 Downloads$ tail -f /var/log/flowvisor/test.log
-Downloads$ fvctl -f pwd set-config --enable-topo-ctrl
-Downloads$ fvctl -f pwd get-config
+Downloads$ sudo fvctl -f pwd set-config --enable-topo-ctrl
+Downloads$ sudo fvctl -f pwd get-config
+
+sudo apt-get install dos2unix
+dos2unix flowvisor_test.sh
 
 sudo mn -c
 Downloads$ sudo mn --custom ./Custom_FatTree_6Pods.py --topo=fattree --link=tc --switch ovsk,protocol=OpenFlow10 --controller=remote,ip=127.0.0.1,port=6633
@@ -58,6 +61,21 @@ Check red slice info:
 fvctl -f pwd list-slice-info Red
 
 sudo fvctl -f pwd list-slice-info Red
+
+
+---
+
+Mboxuser@flowvisor-demo:~/Downloads$ fvctl -f pwd list-flowspace
+Configured Flow entries:
+{"force-enqueue": -1, "queues": [], "name": "Pink_1", "dpid": "@0:00:00:00:00:00:01", "match": {"nw_src": "10.0.0.3", "nw_dst": "10.0.0.4", "wildcards": 3145982, "in_port": 3}, "id": 1, "priority": 1, "slice-action": [{"permission": 7, "slice-name": "Pink"}]}
+{"force-enqueue": -1, "queues": [], "name": "Pink_1", "dpid": "@0:00:00:00:00:01", "match": {"nw_src": "10.0.0.3", "nw_dst": "10.0.0.4", "wildcards": 3145982, "in_port": 3}, "id": 2, "priority": 1, "slice-action": [{"permission": 7, "slice-name": "Pink"}]}
+{"force-enqueue": -1, "queues": [], "name": "Pink_2", "dpid": "@0:00:00:00:00:01", "match": {"nw_src": "10.0.0.4", "nw_dst": "10.0.0.3", "wildcards": 3145982, "in_port": 4}, "id": 3, "priority": 1, "slice-action": [{"permission": 7, "slice-name": "Pink"}]}
+{"force-enqueue": -1, "queues": [], "name": "Pink_3", "dpid": "@0:00:00:00:00:02", "match": {"nw_src": "10.0.0.4", "nw_dst": "10.0.0.3", "wildcards": 3145982, "in_port": 1}, "id": 4, "priority": 1, "slice-action": [{"permission": 7, "slice-name": "Pink"}]}
+{"force-enqueue": -1, "queues": [], "name": "Pink_4", "dpid": "@0:00:00:00:00:02", "match": {"nw_src": "10.0.0.3", "nw_dst": "10.0.0.4", "wildcards": 3145982, "in_port": 4}, "id": 5, "priority": 1, "slice-action": [{"permission": 7, "slice-name": "Pink"}]}
+{"force-enqueue": -1, "queues": [], "name": "Purple_1", "dpid": "@0:00:00:00:00:03", "match": {"nw_src": "10.0.0.7", "nw_dst": "10.0.0.4", "wildcards": 3145982, "in_port": 1}, "id": 6, "priority": 1, "slice-action": [{"permission": 7, "slice-name": "Purple"}]}
+{"force-enqueue": -1, "queues": [], "name": "Purple_2", "dpid": "@0:00:00:00:00:03", "match": {"nw_src": "10.0.0.4", "nw_dst": "10.0.0.7", "wildcards": 3145982, "in_port": 4}, "id": 7, "priority": 1, "slice-action": [{"permission": 7, "slice-name": "Purple"}]}
+{"force-enqueue": -1, "queues": [], "name": "Purple_3", "dpid": "@0:00:00:00:00:02", "match": {"nw_src": "10.0.0.4", "nw_dst": "10.0.0.7", "wildcards": 3145982, "in_port": 1}, "id": 8, "priority": 1, "slice-action": [{"permission": 7, "slice-name": "Purple"}]}
+{"force-enqueue": -1, "queues": [], "name": "Purple_4", "dpid": "@0:00:00:00:00:02", "match": {"nw_src": "10.0.0.7", "nw_dst": "10.0.0.4", "wildcards": 3145982, "in_port": 5}, "id": 9, "priority": 1, "slice-action": [{"permission": 7, "slice-name": "Purple"}]}
 
 ---
 
