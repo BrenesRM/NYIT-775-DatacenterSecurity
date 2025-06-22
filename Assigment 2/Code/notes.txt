@@ -57,5 +57,12 @@ Check red slice info:
 ---
 fvctl -f pwd list-slice-info Red
 
-
 sudo fvctl -f pwd list-slice-info Red
+
+---
+
+Open two terminals:
+......
+sudo ./pox.py forwarding_12_learning openflow.of_01 --address=127.0.0.1 --port=6000
+......
+sudo ./pox.py forwarding_12_learning openflow.of_01 --address=127.0.0.1 --port=7000
