@@ -1,4 +1,4 @@
-Downloads/flowvisor$ sudo fvconfig load /etc/flowvisor/config.json
+Downloads/flowvisor$ fvconfig load /etc/flowvisor/config.json
 Downloads$ sudo /etc/init.d/flowvisor start
 Downloads$ sudo /etc/init.d/flowvisor status
 Downloads$ tail -f /var/log/flowvisor/test.log
@@ -7,6 +7,8 @@ Downloads$ sudo fvctl -f pwd get-config
 
 sudo apt-get install dos2unix
 dos2unix flowvisor_test.sh
+./flowvisor_test.sh
+
 
 sudo mn -c
 Downloads$ sudo mn --custom ./Custom_FatTree_6Pods.py --topo=fattree --link=tc --switch ovsk,protocol=OpenFlow10 --controller=remote,ip=127.0.0.1,port=6633
@@ -15,7 +17,14 @@ fvctl -f pwd list-flowspace
 
 py net.get("s1").dpid
 
-Downloads$ sudo ./flowvisor_config.sh -c
+Downloads$ sudo ./flowvisor_config.sh --red
+
+
+fvctl --passwd-file=pwd list-slices
+fvctl --passwd-file=pwd list-flowspace
+
+sudo ./pox.py forwarding.l2_learning openflow.of_01 --address=127.0.0.1 --port=4000
+
 
 ---------------------------------------------------------------------
 
