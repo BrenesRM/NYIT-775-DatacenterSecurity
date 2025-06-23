@@ -54,13 +54,14 @@ sudo chmod +x flowvisor_config.sh
 sudo ./flowvisor_config.sh --red
 ```
 
-### 6. Verify Slice & FlowSpace
+### 6. Verify Slice, delete & FlowSpace
 
 ```bash
 fvctl -f pwd list-slices
 fvctl -f pwd list-flowspace
 fvctl -f pwd list-datapaths
 fvctl -f pwd list-slice-info Red
+To delete:
 fvctl --passwd-file=pwd remove-slice Red
 ```
 
