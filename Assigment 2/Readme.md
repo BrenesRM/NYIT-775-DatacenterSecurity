@@ -43,12 +43,14 @@ sudo fvctl -f pwd get-config
 ```bash
 sudo apt-get install dos2unix
 dos2unix flowvisor_test.sh
+chmod +x flowvisor_test.sh
 ./flowvisor_test.sh
 ```
 
 ### 5. Configure the Red Slice
 
 ```bash
+sudo chmod +x flowvisor_config.sh
 sudo ./flowvisor_config.sh --red
 ```
 
@@ -70,7 +72,7 @@ sudo ./pox.py forwarding.l2_learning openflow.of_01 --address=127.0.0.1 --port=4
 ### 8. Cleanup and Launch Mininet
 
 ```bash
-sudo mn -c
+If is needed sudo mn -c
 sudo mn --custom ./Custom_FatTree_6Pods.py --topo=fattree --link=tc --switch ovsk,protocol=OpenFlow10 --controller=remote,ip=127.0.0.1,port=6633
 ```
 
