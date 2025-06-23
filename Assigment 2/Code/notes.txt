@@ -9,22 +9,20 @@ sudo apt-get install dos2unix
 dos2unix flowvisor_test.sh
 ./flowvisor_test.sh
 
-
-sudo mn -c
-Downloads$ sudo mn --custom ./Custom_FatTree_6Pods.py --topo=fattree --link=tc --switch ovsk,protocol=OpenFlow10 --controller=remote,ip=127.0.0.1,port=6633
-fvctl -f pwd list-datapaths
-fvctl -f pwd list-flowspace
-
-py net.get("s1").dpid
-
 Downloads$ sudo ./flowvisor_config.sh --red
 
+fvctl -f pwd list-datapaths
+fvctl -f pwd list-flowspace
 
 fvctl --passwd-file=pwd list-slices
 fvctl --passwd-file=pwd list-flowspace
 
 sudo ./pox.py forwarding.l2_learning openflow.of_01 --address=127.0.0.1 --port=4000
 
+sudo mn -c
+Downloads$ sudo mn --custom ./Custom_FatTree_6Pods.py --topo=fattree --link=tc --switch ovsk,protocol=OpenFlow10 --controller=remote,ip=127.0.0.1,port=6633
+
+py net.get("s1").dpid
 
 ---------------------------------------------------------------------
 
