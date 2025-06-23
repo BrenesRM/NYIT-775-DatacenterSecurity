@@ -61,6 +61,7 @@ fvctl -f pwd list-slices
 fvctl -f pwd list-flowspace
 fvctl -f pwd list-datapaths
 fvctl -f pwd list-slice-info Red
+fvctl --passwd-file=pwd remove-slice Red
 ```
 
 ### 7. Start POX Controller
