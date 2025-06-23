@@ -1,94 +1,117 @@
-NYIT-775 Data Center Security - Assignment 2
-Fat-Tree Topology Simulation with Mininet
-This repository contains the implementation of a custom Fat-Tree topology for Mininet, designed for NYIT INCS 775 - Data Center Security (Assignment 2). The project demonstrates network slicing and connectivity testing in a multi-controller environment.
 
-📌 Project Overview
-The Fat-Tree topology is a scalable data center network architecture that provides high bisection bandwidth and redundancy. This implementation includes:
+# FlowVisor + Mininet: Data Center Security Lab (Red Slice Configuration)
 
-4-pod Fat-Tree with core, aggregation, and edge switches.
+This guide outlines the proper step-by-step order to configure and run a Fat-Tree topology with FlowVisor slices and POX controllers.
 
-48 hosts distributed across edge switches.
+---
 
-Multiple OpenFlow controllers for network slicing (FlowVisor compatibility).
+## ✅ Prerequisites
 
-Bandwidth and delay configurations for realistic link behavior.
+- FlowVisor is installed and configured
+- POX controller is available in `./pox`
+- `Custom_FatTree_6Pods.py` exists in working directory
+- `flowvisor_config.sh` script is executable and configured for Red slice
+- Slice password file is named `pwd`
 
-Slice-based connectivity testing to validate network segmentation.
+---
 
-📂 Repository Structure
-File	Description
-Custom_Fat-Tree.py	Main Fat-Tree topology implementation with slicing support.
-Works_Custom_Fat-Tree.py	Simplified Fat-Tree topology (minimal version).
-⚙️ Setup & Execution
-Prerequisites
-Mininet (sudo apt-get install mininet)
+## 🛠 Step-by-Step Execution
 
-Open vSwitch (sudo apt-get install openvswitch-switch)
+### 1. Load FlowVisor Configuration
 
-Python 3
+```bash
+fvconfig load /etc/flowvisor/config.json
+```
 
-Running the Topology
-Run the main Fat-Tree topology (with slicing):
+### 2. Start and Check FlowVisor Status
 
-bash
-sudo python3 Custom_Fat-Tree.py
-This will start Mininet with the full Fat-Tree topology and multiple controllers.
+```bash
+sudo /etc/init.d/flowvisor start
+sudo /etc/init.d/flowvisor status
+tail -f /var/log/flowvisor/test.log  # Optional: Watch logs
+```
 
-Use the Mininet CLI to test connectivity (ping, iperf, etc.).
+### 3. Enable Topology Control
 
-Run the simplified version (minimal setup):
+```bash
+sudo fvctl -f pwd set-config --enable-topo-ctrl
+sudo fvctl -f pwd get-config
+```
 
-bash
-sudo mn --custom Works_Custom_Fat-Tree.py --topo mytopo
-This version does not include slicing but provides a basic Fat-Tree structure.
+### 4. Prepare Test Script (Optional)
 
-🔍 Features
-1. Topology Details
-Core Switches: C1-C8
+```bash
+sudo apt-get install dos2unix
+dos2unix flowvisor_test.sh
+./flowvisor_test.sh
+```
 
-Aggregation Switches: A1-A12
+### 5. Configure the Red Slice
 
-Edge Switches: E1-E16
+```bash
+sudo ./flowvisor_config.sh --red
+```
 
-Hosts: h1-h48 (3 per edge switch)
+### 6. Verify Slice & FlowSpace
 
-2. Network Slicing
-Red Slice: h8, h9, h11, h12
+```bash
+fvctl -f pwd list-slices
+fvctl -f pwd list-flowspace
+fvctl -f pwd list-datapaths
+fvctl -f pwd list-slice-info Red
+```
 
-Green Slice: h28-h36
+### 7. Start POX Controller
 
-Blue Slice: h31-h36
+```bash
+sudo ./pox.py forwarding.l2_learning openflow.of_01 --address=127.0.0.1 --port=4000
+```
 
-Pink Slice: h34, h35, h36, h45
+### 8. Cleanup and Launch Mininet
 
-3. Link Configuration
-Host-to-Edge: 100 Mbps, 1ms delay
+```bash
+sudo mn -c
+sudo mn --custom ./Custom_FatTree_6Pods.py --topo=fattree --link=tc --switch ovsk,protocol=OpenFlow10 --controller=remote,ip=127.0.0.1,port=6633
+```
 
-Inter-Switch Links: 1 Gbps, 1ms delay
+---
 
-4. Connectivity Testing
-The script includes automated ping tests between hosts in the same slice.
+## 📌 Notes
 
-📊 Expected Output
-After running Custom_Fat-Tree.py, you should see:
+- Make sure POX is listening on the correct port before launching Mininet.
+- Each slice should be configured individually via `flowvisor_config.sh`.
+- You can repeat similar steps for Blue, Green, and Pink slices.
 
-A list of all switches and hosts with their DPIDs, IPs, and MACs.
+---
 
-Slice-based host groupings.
+## 🔐 Password File Format
 
-Ping test results for intra-slice communication.
+Create a `pwd` file with:
 
-Mininet CLI for manual testing.
+```
+fvadmin:<your-password>
+```
 
-📜 License
-This project is part of an academic assignment and is free to use for educational purposes.
+This allows `fvctl` to authenticate using the `--passwd-file=pwd` option.
 
-📧 Contact
-For questions or improvements, contact:
+---
 
-Marlon Brenes | GitHub
+## 🧪 Test Connectivity
 
-🎯 Key Takeaways
-✅ Learn Fat-Tree topology structure.
-✅ Understand network slicing with multiple controllers.
-✅ Test connectivity in segmented networks.
+Once in the Mininet CLI:
+
+```bash
+pingall
+```
+
+Or test specific slice hosts:
+
+```bash
+h8 ping -c 3 h9
+h11 ping -c 3 h12
+```
+
+---
+
+## ✅ Done!
+You now have a working SDN slice-based data center topology using FlowVisor + POX + Mininet!
