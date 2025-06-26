@@ -37,8 +37,13 @@ tail -f /var/log/flowvisor/test.log  # Optional: Watch logs
 sudo fvctl -f pwd set-config --enable-topo-ctrl
 sudo fvctl -f pwd get-config
 ```
+### 4. Deploy 6 Pod Fat-Tree Topology Using Mininet
 
-### 4. Prepare Test Script (Optional)
+```bash
+If is needed sudo mn -c
+sudo mn --custom ./Custom_FatTree_6Pods.py --topo=fattree --link=tc --switch ovsk,protocol=OpenFlow10 --controller=remote,ip=127.0.0.1,port=6633
+```
+### 5. Prepare Test Script (Optional)
 
 ```bash
 sudo apt-get install dos2unix
@@ -47,14 +52,14 @@ chmod +x flowvisor_test.sh
 ./flowvisor_test.sh
 ```
 
-### 5. Configure the Red Slice
+### 6. Configure the Red Slice
 
 ```bash
 sudo chmod +x flowvisor_config.sh
 sudo ./flowvisor_config.sh --red
 ```
 
-### 6. Verify Slice, delete & FlowSpace
+### 7. Verify Slice, delete & FlowSpace
 
 ```bash
 fvctl -f pwd list-slices
@@ -65,13 +70,13 @@ To delete:
 fvctl --passwd-file=pwd remove-slice Red
 ```
 
-### 7. Start POX Controller
+### 8. Start POX Controller
 
 ```bash
 sudo ./pox.py forwarding.l2_learning openflow.of_01 --address=127.0.0.1 --port=4000
 ```
 
-### 8. Cleanup and Launch Mininet
+### 9. Cleanup and Launch Mininet (Obsolete)
 
 ```bash
 If is needed sudo mn -c
