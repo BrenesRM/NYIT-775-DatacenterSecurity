@@ -1,0 +1,10 @@
+{
+  "admin-contact": "admin@Red",
+  "admin-status": true,
+  "controller-url": "tcp:127.0.0.1:4000",
+  "current-flowmod-usage": 20,
+  "current-rate": 1,
+  "drop-policy": "exact",
+  "recv-lldp": false,
+  "slice-name": "Red"
+}

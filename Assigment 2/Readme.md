@@ -1,126 +1,123 @@
+# Mininet Fat-Tree Topology with FlowVisor Slicing
 
-# FlowVisor + Mininet: Data Center Security Lab (Red Slice Configuration)
+This project demonstrates how to build and manage a 6-pod Fat-Tree topology in Mininet, integrated with FlowVisor for SDN slicing.
 
-This guide outlines the proper step-by-step order to configure and run a Fat-Tree topology with FlowVisor slices and POX controllers.
+## 📦 Prerequisites
 
----
+- Ubuntu (20.04+ recommended)
+- Mininet installed
+- FlowVisor installed
+- POX Controller
+- `Custom_FatTree_6Pods.py` topology script
+- Slice and FlowSpace setup scripts:
+  - `Create_Slices.sh`
+  - `flowspace_red.sh`
+  - `flowspace_green.sh`
+  - `flowspace_blue.sh`
+  - `flowspace_pink.sh`
 
-## ✅ Prerequisites
-
-- FlowVisor is installed and configured
-- POX controller is available in `./pox`
-- `Custom_FatTree_6Pods.py` exists in working directory
-- `flowvisor_config.sh` script is executable and configured for Red slice
-- Slice password file is named `pwd`
-
----
-
-## 🛠 Step-by-Step Execution
-
-### 1. Load FlowVisor Configuration
+## 🚀 1. Load FlowVisor Configuration
 
 ```bash
 fvconfig load /etc/flowvisor/config.json
 ```
 
-### 2. Start and Check FlowVisor Status
+## 🟢 2. Start and Check FlowVisor Status
 
 ```bash
 sudo /etc/init.d/flowvisor start
 sudo /etc/init.d/flowvisor status
-tail -f /var/log/flowvisor/test.log  # Optional: Watch logs
+tail -f /var/log/flowvisor/test.log   # (Optional) Watch logs
 ```
 
-### 3. Enable Topology Control
+## 🌐 3. Enable Topology Control
 
 ```bash
 sudo fvctl -f pwd set-config --enable-topo-ctrl
 sudo fvctl -f pwd get-config
 ```
-### 4. Deploy 6 Pod Fat-Tree Topology Using Mininet
+
+## 🏗️ 4. Deploy 6-Pod Fat-Tree Topology Using Mininet
 
 ```bash
-If is needed sudo mn -c
-sudo mn --custom ./Custom_FatTree_6Pods.py --topo=fattree --link=tc --switch ovsk,protocol=OpenFlow10 --controller=remote,ip=127.0.0.1,port=6633
+sudo mn --custom ./Custom_FatTree_6Pods.py --topo=fattree --link=tc --arp --mac --controller=remote,ip=127.0.0.1,port=6633 --switch ovsk,protocols=OpenFlow10
 ```
-### 5. Prepare Test Script (Optional)
+
+## 🧩 5. Deploy Slices and FlowSpaces
 
 ```bash
-sudo apt-get install dos2unix
-dos2unix flowvisor_test.sh
-chmod +x flowvisor_test.sh
-./flowvisor_test.sh
+dos2unix Create_Slices.sh && chmod +x Create_Slices.sh && ./Create_Slices.sh
+
+for script in flowspace_red.sh flowspace_green.sh flowspace_blue.sh flowspace_pink.sh; do
+    dos2unix $script && chmod +x $script && ./$script
+done
 ```
 
-### 6. Configure the Red Slice
-
-```bash
-sudo chmod +x flowvisor_config.sh
-sudo ./flowvisor_config.sh --red
-```
-
-### 7. Verify Slice, delete & FlowSpace
+## 🔍 6. Verify Slices and FlowSpaces
 
 ```bash
 fvctl -f pwd list-slices
 fvctl -f pwd list-flowspace
 fvctl -f pwd list-datapaths
 fvctl -f pwd list-slice-info Red
-To delete:
+```
+
+### 🔄 To Delete a Slice:
+
+```bash
 fvctl --passwd-file=pwd remove-slice Red
 ```
 
-### 8. Start POX Controller
+## 🧠 7. Start POX Controllers
 
 ```bash
 sudo ./pox.py forwarding.l2_learning openflow.of_01 --address=127.0.0.1 --port=4000
+sudo ./pox.py forwarding.l2_learning openflow.of_01 --address=127.0.0.1 --port=5000
+sudo ./pox.py forwarding.l2_learning openflow.of_01 --address=127.0.0.1 --port=6000
+sudo ./pox.py forwarding.l2_learning openflow.of_01 --address=127.0.0.1 --port=7000
 ```
 
-### 9. Cleanup and Launch Mininet (Obsolete)
+## 🧪 8. Test
+
+Run pings between hosts within the same slice to confirm slice isolation and forwarding.
+
+## 📝 9. Logging of Deliverables
 
 ```bash
-If is needed sudo mn -c
-sudo mn --custom ./Custom_FatTree_6Pods.py --topo=fattree --link=tc --switch ovsk,protocol=OpenFlow10 --controller=remote,ip=127.0.0.1,port=6633
-```
+fvctl -f pwd list-slice-info Red &> Red
+fvctl -f pwd list-slice-info Green &> Green
+fvctl -f pwd list-slice-info Blue &> Blue
+fvctl -f pwd list-slice-info Pink &> Pink
 
----
+fvctl -f pwd list-flowspace | grep Red &> Red_FS
+fvctl -f pwd list-flowspace | grep Green &> Green_FS
+fvctl -f pwd list-flowspace | grep Blue &> Blue_FS
+fvctl -f pwd list-flowspace | grep Pink &> Pink_FS
+
+fvctl -f pwd list-flowspace &> flowspace
+```
 
 ## 📌 Notes
 
-- Make sure POX is listening on the correct port before launching Mininet.
-- Each slice should be configured individually via `flowvisor_config.sh`.
-- You can repeat similar steps for Blue, Green, and Pink slices.
+- Ensure your POX controllers use the correct ports matching the slices.
+- All FlowVisor commands require a valid `pwd` password file.
 
----
-
-## 🔐 Password File Format
-
-Create a `pwd` file with:
-
-```
-fvadmin:<your-password>
-```
-
-This allows `fvctl` to authenticate using the `--passwd-file=pwd` option.
-
----
-
-## 🧪 Test Connectivity
-
-Once in the Mininet CLI:
+## 📁 Directory Structure Example
 
 ```bash
-pingall
+.
+├── Custom_FatTree_6Pods.py
+├── Create_Slices.sh
+├── flowspace_red.sh
+├── flowspace_green.sh
+├── flowspace_blue.sh
+├── flowspace_pink.sh
+├── README.md
+└── pwd
 ```
 
-Or test specific slice hosts:
+## 🛠 Troubleshooting
 
-```bash
-h8 ping -c 3 h9
-h11 ping -c 3 h12
-```
-
----
-
-## ✅ Done!
-You now have a working SDN slice-based data center topology using FlowVisor + POX + Mininet!
+- **FlowVisor not starting**: Check `/var/log/flowvisor/test.log` for errors.
+- **Missing flows**: Re-run the slice/flowspace scripts or verify controller connectivity.
+- **Controller not forwarding packets**: Ensure POX is using `openflow.of_01` and the correct port.
