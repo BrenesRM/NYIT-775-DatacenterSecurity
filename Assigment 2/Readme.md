@@ -112,7 +112,7 @@ fvctl -f pwd list-flowspace &> flowspace
 ## 📁 Directory Structure Example
 
 ```bash
-.
+./Downloads/
 ├── Custom_FatTree_6Pods.py
 ├── Create_Slices.sh
 ├── flowspace_red.sh
@@ -120,7 +120,8 @@ fvctl -f pwd list-flowspace &> flowspace
 ├── flowspace_blue.sh
 ├── flowspace_pink.sh
 ├── README.md
-└── pwd
+├── pwd
+└── pox
 ```
 
 ## 🛠 Troubleshooting
