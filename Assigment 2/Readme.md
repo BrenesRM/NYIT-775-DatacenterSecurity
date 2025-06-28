@@ -41,6 +41,7 @@ sudo fvctl -f pwd get-config
 
 ```bash
 sudo mn --custom ./Custom_FatTree_6Pods.py --topo=fattree --link=tc --arp --mac --controller=remote,ip=127.0.0.1,port=6633 --switch ovsk,protocols=OpenFlow10
+Wait into the topology is created
 ```
 
 ## 🧩 5. Deploy Slices and FlowSpaces
