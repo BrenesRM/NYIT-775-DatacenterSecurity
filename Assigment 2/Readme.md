@@ -121,7 +121,7 @@ fvctl -f pwd list-flowspace &> flowspace
 ├── flowspace_pink.sh
 ├── README.md
 ├── pwd
-└── pox
+└── /pox
 ```
 
 ## 🛠 Troubleshooting
