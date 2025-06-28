@@ -46,11 +46,16 @@ sudo mn --custom ./Custom_FatTree_6Pods.py --topo=fattree --link=tc --arp --mac 
 ## 🧩 5. Deploy Slices and FlowSpaces
 
 ```bash
+sudo apt install dos2unix
 dos2unix Create_Slices.sh && chmod +x Create_Slices.sh && ./Create_Slices.sh
 
-for script in flowspace_red.sh flowspace_green.sh flowspace_blue.sh flowspace_pink.sh; do
-    dos2unix $script && chmod +x $script && ./$script
-done
+dos2unix flowspace_red.sh flowspace_green.sh flowspace_blue.sh flowspace_pink.sh    
+chmod +x flowspace_red.sh flowspace_green.sh flowspace_blue.sh flowspace_pink.sh
+./flowspace_red.sh
+./flowspace_green.sh
+./flowspace_blue.sh.
+./flowspace_pink.sh
+
 ```
 
 ## 🔍 6. Verify Slices and FlowSpaces
