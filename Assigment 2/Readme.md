@@ -54,7 +54,7 @@ dos2unix flowspace_red.sh flowspace_green.sh flowspace_blue.sh flowspace_pink.sh
 chmod +x flowspace_red.sh flowspace_green.sh flowspace_blue.sh flowspace_pink.sh
 ./flowspace_red.sh
 ./flowspace_green.sh
-./flowspace_blue.sh.
+./flowspace_blue.sh
 ./flowspace_pink.sh
 
 ```
@@ -77,6 +77,7 @@ fvctl --passwd-file=pwd remove-slice Red
 ## 🧠 7. Start POX Controllers
 
 ```bash
+Into ~/Downloads/pox$ run each independently
 sudo ./pox.py forwarding.l2_learning openflow.of_01 --address=127.0.0.1 --port=4000
 sudo ./pox.py forwarding.l2_learning openflow.of_01 --address=127.0.0.1 --port=5000
 sudo ./pox.py forwarding.l2_learning openflow.of_01 --address=127.0.0.1 --port=6000
